@@ -1,0 +1,129 @@
+// components/Header.tsx (updated)
+'use client';
+
+import { useState } from 'react';
+import { useUser } from '@/src/store/userStore';
+import {
+    ArrowDown,
+    BookMarked,
+    CircleQuestionMark,
+    Home,
+    MessageCircle,
+    PlusCircle,
+    User,
+} from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import SearchBox from './SearchBox';
+import Buttons from '../Buttons';
+import CitySelector from '../modal/HeaderModal';
+import Link from 'next/link';
+import { useRegisterModal } from '@/src/store/registerModal';
+
+const Header = () => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [openNav, setOpenNav] = useState(false);
+    const { user } = useUser();
+    const pathname = usePathname();
+    const isSearchPage = pathname.startsWith('/s');
+    const { isOpen, changeIsOpen } = useRegisterModal();
+
+    return (
+        <header className="h-16 border-b border-zinc-800 bg-background px-4">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex mx-auto h-full items-center gap-4">
+                {/* RIGHT */}
+                <div className="flex shrink-0 items-center">
+                    <h1 className="px-4 text-3xl font-semibold text-primary">دیوار</h1>
+                    <div className="h-4 border-l border-zinc-700" />
+                    <CitySelector
+                        className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-white/85 hover:bg-zinc-800 transition-colors"
+                        iconSize={18}
+                        showArrow={true}
+                    />
+                </div>
+
+                {/* CENTER */}
+                <div className="flex flex-1 items-center gap-2">
+                    {isSearchPage && (
+                        <>
+                            <Buttons text="دسته بندی" icon={<ArrowDown size={18} />} />
+                            <div className="w-full max-w-3xl">
+                                <SearchBox
+                                    searchTerm={searchTerm}
+                                    setSearchTerm={setSearchTerm}
+                                />
+                            </div>
+                        </>
+                    )}
+                </div>
+
+                {/* LEFT */}
+                <div className="flex shrink-0 items-center gap-1">
+                    <div className='relative'>
+                        <Buttons
+                            text="دیوار من"
+                            icon={<User size={18} />}
+                            onClick={() => setOpenNav(prev => !prev)}
+                        />
+                        {openNav ?
+                            <>
+                                <div className='absolute top-full'>
+                                    <ul className="w-40 rounded-md border border-zinc-800 bg-background text-sm text-white/85 shadow-[0_0px_8px_rgba(255,255,255,0.1)]">
+                                        {!user ?
+
+                                            <>
+                                            <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><button>{user}</button></li>
+                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={''}>نشان ها</Link></li>
+                                                <li className="px-4 py-2 hover:bg-zinc-800 cursor-pointer"><Link href={''}>تنظیمات</Link></li>
+                                            </>
+                                            :
+                                            <>
+                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><button onClick={() => changeIsOpen(!isOpen)}>ورود</button></li>
+                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={''}>نشان ها</Link></li>
+                                                <li className="px-4 py-2 hover:bg-zinc-800 cursor-pointer"><Link href={''}>تنظیمات</Link></li>
+                                            </>
+                                        }</ul>
+                                </div>
+                            </> : null}
+                    </div>
+                    <Buttons text="چت" icon={<MessageCircle size={18} />} />
+                    <Buttons text="پشتیبانی" icon={<CircleQuestionMark size={18} />} />
+                    <button className="mr-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90">
+                        ثبت آگهی
+                    </button>
+                </div>
+            </nav>
+
+            {/* Mobile Navigation */}
+            <nav className="flex md:hidden flex-col h-full justify-center items-center">
+                {/* Top mobile header */}
+                <div className="flex w-full rounded-sm bg-zinc-700 text-white/87 px-1 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-zinc-800">
+                    <div className="flex-1">
+                        <SearchBox
+                            searchTerm={searchTerm}
+                            setSearchTerm={setSearchTerm}
+                        />
+                    </div>
+                    <div className="h-8 my-auto w-0.5 bg-zinc-400/5 mx-3"></div>
+                    {/* City selector for mobile */}
+                    <CitySelector
+                        className="flex shrink-0 items-center gap-1 rounded-md px-3 py-2 text-sm text-white/85"
+                        iconSize={16}
+                        showArrow={false}
+                    />
+                </div>
+
+                {/* Bottom navigation */}
+                <div className="fixed bottom-0 left-0 right-0 flex h-16 items-center justify-around border-t border-zinc-800 bg-background">
+                    <Buttons text="آگهی ها" icon={<Home size={18} />} isMobile={true} />
+                    <Buttons text="نشان ها" icon={<BookMarked size={18} />} isMobile={true} />
+                    <Buttons text="ثبت آگهی" icon={<PlusCircle size={18} />} isMobile={true} />
+                    <Buttons text="چت" icon={<MessageCircle size={18} />} isMobile={true} />
+                    <Buttons text="دیوار من" icon={<User size={18} />} isMobile={true} />
+                </div>
+            </nav>
+        </header >
+    );
+};
+
+export default Header;
