@@ -18,6 +18,7 @@ import Buttons from '../Buttons';
 import CitySelector from '../modal/HeaderModal';
 import Link from 'next/link';
 import { useRegisterModal } from '@/src/store/registerModal';
+import Modal from '../registermodal/Modal';
 
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -26,6 +27,7 @@ const Header = () => {
     const pathname = usePathname();
     const isSearchPage = pathname.startsWith('/s');
     const { isOpen, changeIsOpen } = useRegisterModal();
+    console.log(isOpen)
 
     return (
         <header className="h-16 border-b border-zinc-800 bg-background px-4">
@@ -57,7 +59,6 @@ const Header = () => {
                     )}
                 </div>
 
-                {/* LEFT */}
                 <div className="flex shrink-0 items-center gap-1">
                     <div className='relative'>
                         <Buttons
@@ -72,7 +73,7 @@ const Header = () => {
                                         {!user ?
 
                                             <>
-                                            <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><button>{user}</button></li>
+                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><button>{user}</button></li>
                                                 <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={''}>نشان ها</Link></li>
                                                 <li className="px-4 py-2 hover:bg-zinc-800 cursor-pointer"><Link href={''}>تنظیمات</Link></li>
                                             </>
@@ -122,6 +123,7 @@ const Header = () => {
                     <Buttons text="دیوار من" icon={<User size={18} />} isMobile={true} />
                 </div>
             </nav>
+            {isOpen ? <Modal /> : null}
         </header >
     );
 };

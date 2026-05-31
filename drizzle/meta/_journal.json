@@ -8,6 +8,13 @@
       "when": 1779985645507,
       "tag": "0000_blue_punisher",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1780247605063,
+      "tag": "0001_nappy_captain_marvel",
+      "breakpoints": true
     }
   ]
 }

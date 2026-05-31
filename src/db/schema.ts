@@ -16,3 +16,9 @@ export const cities = pgTable('cities', {
         .defaultNow()
         .notNull(),
 });
+
+export const users = pgTable('user', {
+    id: serial('id').primaryKey(),
+    phone: varchar('phone', {length:11}).notNull().unique(),
+    logincode: varchar('logincode').unique()
+})
