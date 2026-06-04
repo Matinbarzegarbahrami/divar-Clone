@@ -23,11 +23,12 @@ import Modal from '../registermodal/Modal';
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [openNav, setOpenNav] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // state for mobile dropdown
     const { user } = useUser();
     const pathname = usePathname();
     const isSearchPage = pathname.startsWith('/s');
     const { isOpen, changeIsOpen } = useRegisterModal();
-    console.log(isOpen)
+    console.log(user)
 
     return (
         <header className="h-16 border-b border-zinc-800 bg-background px-4">
@@ -79,7 +80,7 @@ const Header = () => {
                                             </>
                                             :
                                             <>
-                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><button onClick={() => changeIsOpen(!isOpen)}>ورود</button></li>
+                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><button onClick={() => changeIsOpen(!isOpen)}>داشبورد</button></li>
                                                 <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={''}>نشان ها</Link></li>
                                                 <li className="px-4 py-2 hover:bg-zinc-800 cursor-pointer"><Link href={''}>تنظیمات</Link></li>
                                             </>
@@ -120,10 +121,49 @@ const Header = () => {
                     <Buttons text="نشان ها" icon={<BookMarked size={18} />} isMobile={true} />
                     <Buttons text="ثبت آگهی" icon={<PlusCircle size={18} />} isMobile={true} />
                     <Buttons text="چت" icon={<MessageCircle size={18} />} isMobile={true} />
-                    <Buttons text="دیوار من" icon={<User size={18} />} isMobile={true} />
+                    {/* mobile dropdown wrapper */}
+                    <div className="relative">
+                        <Buttons
+                            text="دیوار من"
+                            icon={<User size={18} />}
+                            isMobile={true}
+                            onClick={() => setMobileMenuOpen(prev => !prev)}
+                        />
+                        {mobileMenuOpen && (
+                            <div className="absolute bottom-full mb-2">
+                                <ul className="w-40 rounded-md border border-zinc-800 bg-background text-sm text-white/85 shadow-[0_0px_8px_rgba(255,255,255,0.1)]">
+                                    {!user ? (
+                                        <>
+                                            <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer">
+                                                <button>{user}</button>
+                                            </li>
+                                            <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer">
+                                                <Link href={''}>نشان ها</Link>
+                                            </li>
+                                            <li className="px-4 py-2 hover:bg-zinc-800 cursor-pointer">
+                                                <Link href={''}>تنظیمات</Link>
+                                            </li>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer">
+                                                <button onClick={() => changeIsOpen(!isOpen)}>داشبورد</button>
+                                            </li>
+                                            <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer">
+                                                <Link href={''}>نشان ها</Link>
+                                            </li>
+                                            <li className="px-4 py-2 hover:bg-zinc-800 cursor-pointer">
+                                                <Link href={''}>تنظیمات</Link>
+                                            </li>
+                                        </>
+                                    )}
+                                </ul>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </nav>
-            {isOpen ? <Modal /> : null}
+            {isOpen ? <Modal isOpen={isOpen} onClose={changeIsOpen} /> : null}
         </header >
     );
 };
