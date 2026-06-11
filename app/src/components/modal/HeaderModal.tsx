@@ -3,13 +3,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MapPin, ChevronDown } from 'lucide-react';
 
-import { cityT, useCity } from '@/src/store/cityStore';
-import { ToFarsi } from '@/src/util/turnToFarsi';
+import { cityT, useCity } from '@/app/src/store/cityStore';
+import { ToFarsi } from '@/app/src/util/turnToFarsi';
 
 interface City {
   id: string;
-  name: string;
-  slug: cityT;
+  name: cityT;
+  label: string;
 }
 
 interface CitySelectorProps {
@@ -36,7 +36,6 @@ export default function CitySelector({
 
   const { city, setCity } = useCity();
 
-  // fetch cities
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -62,7 +61,6 @@ export default function CitySelector({
     fetchCities();
   }, []);
 
-  // close modal on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
@@ -83,7 +81,6 @@ export default function CitySelector({
     };
   }, []);
 
-  // filtered cities
   const filteredCities = useMemo(() => {
     if (!searchTerm.trim()) {
       return cities;
@@ -95,7 +92,7 @@ export default function CitySelector({
   }, [cities, searchTerm]);
 
   const handleSelectCity = (selectedCity: City) => {
-    setCity(selectedCity.slug);
+    setCity(selectedCity.name);
 
     onCityChange?.(selectedCity);
 
@@ -171,7 +168,7 @@ export default function CitySelector({
                     }
                     className="block w-full px-4 py-3 text-right transition hover:bg-zinc-800"
                   >
-                    {c.name}
+                    {c.label}
                   </button>
                 ))}
             </div>

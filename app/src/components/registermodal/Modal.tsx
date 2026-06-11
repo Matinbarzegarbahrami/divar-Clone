@@ -1,7 +1,7 @@
 'use client';
 import { X } from "lucide-react";
 import { useState } from "react";
-import { useUser } from "@/src/store/userStore";
+import { useUser } from "@/app/src/store/userStore";
 
 interface User {
   phone: string;

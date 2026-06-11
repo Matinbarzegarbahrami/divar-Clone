@@ -1,52 +1,47 @@
-import { db } from "@/src/db/db";
-import { users } from "@/src/db/schema";
+import { PHONES, type PhoneUser } from "@/MOCKS/REGISTER";
 import { randomInt } from "crypto";
-import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
+interface SendOtpRequest {
+  number: string;
+}
+
 export async function POST(request: NextRequest) {
-    const body = await request.json();
+  const body: SendOtpRequest = await request.json();
 
-    const phone = body.number;
+  const phone = body.number;
 
-    if (!phone) {
-        return NextResponse.json(
-            { message: "Phone number is required" },
-            { status: 400 }
-        );
-    }
+  if (!phone) {
+    return NextResponse.json(
+      { message: "Phone number is required" },
+      { status: 400 }
+    );
+  }
 
-    const existingUser = await db
-        .select()
-        .from(users)
-        .where(eq(users.phone, phone))
-        .limit(1);
+  const verifyCode = randomInt(100000, 999999).toString();
 
-    const verifyCode = randomInt(100000, 999999);
+  const existingUser: PhoneUser | undefined = PHONES.find(
+    (user) => user.phone === phone
+  );
 
-    if (existingUser.length > 0) {
-        await db
-            .update(users)
-            .set({
-                logincode: String(verifyCode),
-            })
-            .where(eq(users.phone, phone));
-            // ==== OTP ======
-            console.log(verifyCode)
-        return NextResponse.json({
-            message: "Verify code updated for existing user",
-            verifyCode,
-        });
-    }
+  if (existingUser) {
+    existingUser.logincode = verifyCode;
 
-    await db.insert(users).values({
-        phone,
-        logincode: String(verifyCode),
-    });
-    // ==== OTP ======
-    console.log(verifyCode)
     return NextResponse.json({
-        message: "User created and verify code set",
-        verifyCode,
+      message: "Verify code updated for existing user",
+      verifyCode,
     });
+  }
+console.log(verifyCode)
+  const newUser: PhoneUser = {
+    phone,
+    logincode: verifyCode,
+  };
+
+  PHONES.push(newUser);
+
+  return NextResponse.json({
+    message: "User created and verify code set",
+    verifyCode,
+  });
 }

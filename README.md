@@ -1,6 +1,6 @@
 # Divar Clone — Full Stack Next.js
 
-A full-stack clone of Divar built with Next.js, featuring ad posting, user authentication, image upload, category filtering, and a modern responsive UI.
+A full-stack clone of Divar built with Next.js, featuring ad posting, user authentication, image upload, category filtering, and a modern responsive UI and with mock API.
 
 ## Preview
 

@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useUser } from '@/src/store/userStore';
+import { useUser } from '@/app/src/store/userStore';
 import {
     ArrowDown,
     BookMarked,
@@ -17,13 +17,13 @@ import SearchBox from './SearchBox';
 import Buttons from '../Buttons';
 import CitySelector from '../modal/HeaderModal';
 import Link from 'next/link';
-import { useRegisterModal } from '@/src/store/registerModal';
+import { useRegisterModal } from '@/app/src/store/registerModal';
 import Modal from '../registermodal/Modal';
 
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [openNav, setOpenNav] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // state for mobile dropdown
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { user } = useUser();
     const pathname = usePathname();
     const isSearchPage = pathname.startsWith('/s');

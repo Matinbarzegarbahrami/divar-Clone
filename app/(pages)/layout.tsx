@@ -1,5 +1,5 @@
 import "./globals.css";
-import Header from "@/src/components/Header/Header";
+import Header from "@/app/src/components/Header/Header";
 
 
 

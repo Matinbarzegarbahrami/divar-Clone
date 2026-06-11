@@ -3,6 +3,7 @@ import {
     serial,
     varchar,
     timestamp,
+    numeric,
 } from 'drizzle-orm/pg-core';
 
 export const cities = pgTable('cities', {
