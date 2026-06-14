@@ -6,6 +6,9 @@ A full-stack clone of Divar built with Next.js, featuring ad posting, user authe
 
 A marketplace web application inspired by Divar where users can create and browse ads for products, services, real estate, vehicles, and more.
 
+- this website is use mock api and it can not change any of data in app 
+divar-clone-blond.vercel.app
+
 ---
 
 ## Features
