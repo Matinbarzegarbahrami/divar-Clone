@@ -15,12 +15,13 @@ export default function RootLayout({
       lang="fa"
       dir="rtl"
       className={`h-full antialiased`}
+      data-yd-content-ready="true"
     >
       
       <body className="min-h-full flex flex-col">
         <Header/>
+        <div>{children}</div>
         
-        {children}
         </body>
     </html>
   );

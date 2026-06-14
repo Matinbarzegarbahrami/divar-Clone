@@ -48,14 +48,14 @@ const SendCodeButton = ({ number, onCodeSent, setIsLoading } : SendCodeButtonPro
       const data = await response.json();
       
       if (response.ok) {
-        console.log('Code sent:', data.verifyCode);
+         alert(`Code sent: ${data.verifyCode}`);
         onCodeSent(true);
         alert('کد تأیید برای شما ارسال شد');
       } else {
         alert(data.message || 'خطا در ارسال کد');
       }
     } catch (e) {
-      console.log(e);
+       (e);
       alert('خطا در ارتباط با سرور');
     } finally {
       setIsLoading(false);
@@ -103,7 +103,7 @@ const VerifyButton = ({ phone, code, onSuccess, onClose, setIsLoading } : Verify
         alert(data.message || 'کد نامعتبر است');
       }
     } catch (e) {
-      console.log(e);
+       (e);
       alert('خطا در ارتباط با سرور');
     } finally {
       setIsLoading(false);
@@ -135,7 +135,7 @@ const Modal = ({ isOpen, onClose } : ModalProps) => {
   };
 
   const handleVerifySuccess = (user :User) => {
-    console.log('User logged in:', user);
+    
   };
 
   return (

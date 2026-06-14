@@ -28,11 +28,10 @@ const Header = () => {
     const pathname = usePathname();
     const isSearchPage = pathname.startsWith('/s');
     const { isOpen, changeIsOpen } = useRegisterModal();
-    console.log(user)
+     (user)
 
     return (
         <header className="h-16 border-b border-zinc-800 bg-background px-4">
-            {/* Desktop Navigation */}
             <nav className="hidden md:flex mx-auto h-full items-center gap-4">
                 {/* RIGHT */}
                 <div className="flex shrink-0 items-center">
@@ -70,17 +69,18 @@ const Header = () => {
                         {openNav ?
                             <>
                                 <div className='absolute top-full'>
-                                    <ul className="w-40 rounded-md border border-zinc-800 bg-background text-sm text-white/85 shadow-[0_0px_8px_rgba(255,255,255,0.1)]">
-                                        {!user ?
+                                    <ul className="w-40 rounded-md border border-zinc-800 bg-zinc-800 text-sm text-white/85 shadow-[0_0px_8px_rgba(255,255,255,0.1)] p-2 z-50">
+                                        {user ?
 
                                             <>
-                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><button>{user}</button></li>
+                                                <li >{user.phone}</li>
+                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={'my-divar'}>داشبورد</Link></li>
                                                 <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={''}>نشان ها</Link></li>
-                                                <li className="px-4 py-2 hover:bg-zinc-800 cursor-pointer"><Link href={''}>تنظیمات</Link></li>
+                                                <li className="px-4 py-2  hover:bg-zinc-800 cursor-pointer"><Link href={''}>تنظیمات</Link></li>
                                             </>
                                             :
                                             <>
-                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><button onClick={() => changeIsOpen(!isOpen)}>داشبورد</button></li>
+                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><button onClick={() => changeIsOpen(!isOpen)}>ورود</button></li>
                                                 <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={''}>نشان ها</Link></li>
                                                 <li className="px-4 py-2 hover:bg-zinc-800 cursor-pointer"><Link href={''}>تنظیمات</Link></li>
                                             </>
@@ -90,9 +90,9 @@ const Header = () => {
                     </div>
                     <Buttons text="چت" icon={<MessageCircle size={18} />} />
                     <Buttons text="پشتیبانی" icon={<CircleQuestionMark size={18} />} />
-                    <button className="mr-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90">
+                    <Link href={'new'} className="mr-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90">
                         ثبت آگهی
-                    </button>
+                    </Link>
                 </div>
             </nav>
 
@@ -116,10 +116,10 @@ const Header = () => {
                 </div>
 
                 {/* Bottom navigation */}
-                <div className="fixed bottom-0 left-0 right-0 flex h-16 items-center justify-around border-t border-zinc-800 bg-background">
+                <div className="fixed bottom-0 left-0 right-0 flex h-16 items-center bg-zinc-700 h-12 justify-around border-t border-zinc-800 bg-background">
                     <Buttons text="آگهی ها" icon={<Home size={18} />} isMobile={true} />
                     <Buttons text="نشان ها" icon={<BookMarked size={18} />} isMobile={true} />
-                    <Buttons text="ثبت آگهی" icon={<PlusCircle size={18} />} isMobile={true} />
+                    <Link href={'new'}><PlusCircle size={18} /> ثبت آگهی</Link>
                     <Buttons text="چت" icon={<MessageCircle size={18} />} isMobile={true} />
                     {/* mobile dropdown wrapper */}
                     <div className="relative">

@@ -7,7 +7,7 @@ async function seed() {
         { slug: 'tabriz', name: 'تبریز' },
     ]);
 
-    console.log('seed done');
+     ('seed done');
 }
 
 seed().catch((err) => {

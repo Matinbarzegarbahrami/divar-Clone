@@ -1,6 +1,6 @@
 import { PHONES, type PhoneUser } from "@/MOCKS/REGISTER";
 import { NextRequest, NextResponse } from "next/server";
-
+import jwt from "jsonwebtoken"
 interface VerifyRequest {
   phone: string;
   code: string;
@@ -37,10 +37,31 @@ export async function POST(request: NextRequest) {
 
   user.logincode = "";
 
-  return NextResponse.json({
+  const token = jwt.sign({
+    id: crypto.randomUUID(),
+    phone: phone,
+  },
+    process.env.JWT_SECRET!,
+    {
+      expiresIn: "7d"
+    }
+  )
+
+  const response = NextResponse.json({
     message: "Verification successful",
     user: {
       phone: user.phone,
     },
   });
+  
+  
+  response.cookies.set("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7,
+  });
+  
+  return response;
 }

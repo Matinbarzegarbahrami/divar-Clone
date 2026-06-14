@@ -1,3 +1,19 @@
+export type postsT = {
+  id:string;
+  category:string;
+  title:string;
+  price:number;
+  city:string;
+  location:string;
+  image:string;
+  description:string;
+  status:string;
+  createdAt:string;
+  owner:{
+    phone:string
+  }
+}
+
 export const ALLPOSTS = [
   // =========================
   // موبایل
@@ -6,7 +22,7 @@ export const ALLPOSTS = [
     id: "1",
     category: "mobile",
     title: "آیفون 15 پرو 256 گیگ",
-    price: 89500000,
+    price: "89500000",
     city: "تهران",
     location: "سعادت آباد",
     image: "/images/mobile/iphone15pro.jpg",
@@ -21,7 +37,7 @@ export const ALLPOSTS = [
     id: "2",
     category: "mobile",
     title: "سامسونگ Galaxy S24 Ultra",
-    price: 69900000,
+    price: "69900000",
     city: "tehran",
     location: "ستارخان",
     image: "/images/mobile/s24ultra.jpg",
@@ -40,7 +56,7 @@ export const ALLPOSTS = [
     id: "3",
     category: "real-estate",
     title: "فروش آپارتمان ۱۲۰ متری",
-    price: 12500000000,
+    price: "12500000000",
     city: "تهران",
     location: "پونک",
     image: "/images/realestate/apartment1.jpg",
@@ -55,7 +71,7 @@ export const ALLPOSTS = [
     id: "4",
     category: "real-estate",
     title: "رهن کامل واحد ۸۵ متری",
-    price: 1800000000,
+    price: "1800000000",
     city: "tehran",
     location: "انقلاب",
     image: "/images/realestate/apartment2.jpg",
@@ -74,12 +90,12 @@ export const ALLPOSTS = [
     id: "5",
     category: "vehicle",
     title: "پژو 207 اتومات مدل 1402",
-    price: 980000000,
+    price: "980000000",
     city: "tabriz",
     location: "ولیعصر",
     image: "/images/vehicles/207.jpg",
     description: "بدون رنگ، ۱۸ هزار کیلومتر کارکرد",
-    status: "active",
+    status: "deactive",
     createdAt: "2025-06-11",
     owner:{
         phone:'09036591941'
@@ -89,7 +105,7 @@ export const ALLPOSTS = [
     id: "6",
     category: "vehicle",
     title: "کیا سراتو 2018",
-    price: 1950000000,
+    price: "1950000000",
     city: "tabriz",
     location: "ولیعصر",
     image: "/images/vehicles/cerato.jpg",
@@ -104,7 +120,7 @@ export const ALLPOSTS = [
     id: "7",
     category: "vehicle",
     title: "موتورسیکلت هوندا 150",
-    price: 145000000,
+    price: "145000000",
     city: "مشهد",
     location: "احمدآباد",
     image: "/images/vehicles/honda150.jpg",

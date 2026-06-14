@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       verifyCode,
     });
   }
-console.log(verifyCode)
+ (verifyCode)
   const newUser: PhoneUser = {
     phone,
     logincode: verifyCode,
