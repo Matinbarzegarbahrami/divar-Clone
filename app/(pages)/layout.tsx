@@ -1,7 +1,13 @@
 import "./globals.css";
 import Header from "@/app/src/components/Header/Header";
 
-
+export const metadata = {
+    title:"دیوار | کلون دیوار",
+    description:"آگهی های رایگان دیوار کلون",
+    icons: {
+    icon: "/images/divar.png",
+  },
+}
 
 export default function RootLayout({
   children,

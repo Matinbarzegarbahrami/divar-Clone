@@ -56,9 +56,6 @@ if(loading){
           className=" object-cover rounded-lg"
         />
 
-        <div className="absolute top-2 right-2 bg-black/70 text-white text-[11px] px-2 py-1 rounded-full">
-          📷 1
-        </div>
       </div>
 
       {/* Content */}

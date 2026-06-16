@@ -60,7 +60,7 @@ const Header = () => {
                 </div>
 
                 <div className="flex shrink-0 items-center gap-1">
-                    <div className='relative'>
+                    <div className='relative z-9999'>
                         <Buttons
                             text="دیوار من"
                             icon={<User size={18} />}
@@ -122,7 +122,7 @@ const Header = () => {
                     <Link href={'new'}><PlusCircle size={18} /> ثبت آگهی</Link>
                     <Buttons text="چت" icon={<MessageCircle size={18} />} isMobile={true} />
                     {/* mobile dropdown wrapper */}
-                    <div className="relative">
+                    <div className="relative z-9999">
                         <Buttons
                             text="دیوار من"
                             icon={<User size={18} />}
@@ -130,12 +130,12 @@ const Header = () => {
                             onClick={() => setMobileMenuOpen(prev => !prev)}
                         />
                         {mobileMenuOpen && (
-                            <div className="absolute bottom-full mb-2">
-                                <ul className="w-40 rounded-md border border-zinc-800 bg-background text-sm text-white/85 shadow-[0_0px_8px_rgba(255,255,255,0.1)]">
+                            <div className="absolute bottom-full mb-2 left-[-20px]">
+                                <ul className="w-40 rounded-md border border-zinc-800 bg-zinc-700 p-3 text-sm text-white/85 shadow-[0_0px_8px_rgba(255,255,255,0.1)]">
                                     {!user ? (
                                         <>
                                             <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer">
-                                                <button>{user}</button>
+                                                <button onClick={() => changeIsOpen(!isOpen)}>داشبورد</button>
                                             </li>
                                             <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer">
                                                 <Link href={''}>نشان ها</Link>
@@ -146,9 +146,8 @@ const Header = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer">
-                                                <button onClick={() => changeIsOpen(!isOpen)}>داشبورد</button>
-                                            </li>
+                                                <li >{user.phone}</li>
+                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={'my-divar'}>داشبورد</Link></li>
                                             <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer">
                                                 <Link href={''}>نشان ها</Link>
                                             </li>

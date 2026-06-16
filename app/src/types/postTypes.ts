@@ -1,11 +1,13 @@
 export type State = {
-    coverImage: File | null;
+    id:string | number
+    coverImage: File | null | string;
     allImages: File[];
     title: string;
     description: string;
     category: string;
     address: string;
     price: string;
+    createdAt:string;
     // ============ state ==============
     area?: number;
     floor?: number;
@@ -35,7 +37,7 @@ export type Action =
     | { type: "SET_DESCRIPTION"; payload: string }
     | { type: "ADD_IMAGES"; payload: File[] }
     | { type: "REMOVE_IMAGE"; payload: number }
-    | { type: "SET_COVER"; payload: File | null }
+    | { type: "SET_COVER"; payload: File | null | string}
     | { type: "SET_CATEGORY"; payload: string }
     | { type: "SET_ADDRESS"; payload: string }
     | { type: "SET_PRICE"; payload: string }
