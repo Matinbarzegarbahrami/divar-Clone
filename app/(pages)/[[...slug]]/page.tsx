@@ -5,7 +5,7 @@ import SideBar from "@/app/src/components/Home/SideBar";
 import { turnToFarsi } from "@/app/src/lib/turnToFarsi";
 import MainFrame from "@/app/src/components/Home/homeFrames";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL!;
+const BASE_URL = "https://divar-clone-blond.vercel.app";
 type Props = {
   params: {
     slug?: string[];
