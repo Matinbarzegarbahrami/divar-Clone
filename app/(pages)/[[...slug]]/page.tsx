@@ -5,7 +5,7 @@ import SideBar from "@/app/src/components/Home/SideBar";
 import { turnToFarsi } from "@/app/src/lib/turnToFarsi";
 import MainFrame from "@/app/src/components/Home/homeFrames";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL!;
 type Props = {
   params: {
     slug?: string[];
