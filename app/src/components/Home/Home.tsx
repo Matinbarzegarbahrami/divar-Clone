@@ -13,7 +13,7 @@ export default function HomePage({
   slug?: string;
 }) {
   const [posts, setPosts] = useState<State[]>(initialPosts);
-  const [page, setPage] = useState(2); // صفحه اول قبلاً لود شده
+  const [page, setPage] = useState(2);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(initialPosts.length > 0);
 
@@ -30,7 +30,9 @@ export default function HomePage({
       slug,
     });
   }, [page]);
-
+  useEffect(() => {
+    setPosts(initialPosts);
+  }, [initialPosts]);
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (
@@ -48,7 +50,8 @@ export default function HomePage({
 
     return () => observer.disconnect();
   }, [loading, hasMore]);
-
+  console.log("HomePage Render");
+  console.log(initialPosts);
   return (
     <div className="grid grid-cols-3 w-full gap-7">
       {posts.map((post) => (

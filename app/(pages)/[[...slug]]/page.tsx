@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { State } from "@/app/src/types/postTypes";
 import SideBar from "@/app/src/components/Home/SideBar";
 import { turnToFarsi } from "@/app/src/lib/turnToFarsi";
+import MainFrame from "@/app/src/components/Home/homeFrames";
 
 const BASE_URL = "http://localhost:3000";
 type Props = {
@@ -21,13 +22,15 @@ export async function generateMetadata(props: Props) {
   }
   return {
     title: slug ? turnToFarsi(slug[0]) : "دیوار | کلون دیوار",
+    description:"کلون دیوار"
   };
 }
 
-async function getInitialPosts(slug?: string): Promise<State[]> {
-  const url = slug
-    ? `${BASE_URL}/api/posts/${slug}?page=1`
-    : `${BASE_URL}/api/posts?page=1`;
+async function getInitialPosts(slug?: string, min?:string, max?: string): Promise<State[]> {
+
+  const url = slug 
+    ? `${BASE_URL}/api/posts/${slug}?page=1&price=${min}-${max}`
+    : `${BASE_URL}/api/posts?page=1&price=${min?min:0}-${max?max:Number.MAX_SAFE_INTEGER}`;
 
   const res = await fetch(url, {
     cache: "no-store",
@@ -43,31 +46,28 @@ async function getInitialPosts(slug?: string): Promise<State[]> {
 
 export default async function Home({
   params,
+  searchParams
 }: {
   params: Promise<{ slug?: string[] }>;
+  searchParams: { price?: string };
 }) {
   const { slug } = await params;
-
+  const {price} = await searchParams
+  const priceRange = price ?? "";
+const [min, max] = priceRange.split("-");
   if (slug && slug.length > 1) {
     notFound();
   }
 
+
   const category = slug?.[0];
 
-  const initialPosts = await getInitialPosts(category);
-
+  const initialPosts = await getInitialPosts(category, min, max);
+console.log("price:", price);
+console.log("initialPosts:", initialPosts.length);
   return (
     <div className="flex gap-2 w-full p-6">
-      <aside className={`md:w-73 w-auto block sm:block p-2 shrink-0`}>
-        <SideBar slug={category} />
-      </aside>
-      
-        <HomePage
-          slug={category}
-          initialPosts={initialPosts}
-        />
-      
-
+      <MainFrame category={category} initialPosts={initialPosts} />
     </div>
 
   );
