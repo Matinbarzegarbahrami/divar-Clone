@@ -29,7 +29,7 @@ export async function generateMetadata(props: Props) {
 async function getInitialPosts(slug?: string, min?:string, max?: string): Promise<State[]> {
 
   const url = slug 
-    ? `${BASE_URL}/api/posts/${slug}?page=1&price=${min}-${max}`
+    ? `${BASE_URL}/api/posts/${slug}?page=1&price=${min?min:0}-${max?max:Number.MAX_SAFE_INTEGER}`
     : `${BASE_URL}/api/posts?page=1&price=${min?min:0}-${max?max:Number.MAX_SAFE_INTEGER}`;
 
   const res = await fetch(url, {
@@ -66,7 +66,7 @@ const [min, max] = priceRange.split("-");
 console.log("price:", price);
 console.log("initialPosts:", initialPosts.length);
   return (
-    <div className="flex gap-2 w-full p-6">
+    <div className="lg:flex block gap-2 w-full p-6 ">
       <MainFrame category={category} initialPosts={initialPosts} />
     </div>
 

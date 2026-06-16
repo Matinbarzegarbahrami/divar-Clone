@@ -11,6 +11,8 @@ import { setNewPost } from "./setNewPost";
 import { useUser } from "../../store/userStore";
 
 const initialState: State = {
+    id:'',
+    createdAt:'',
     coverImage: null,
     allImages: [],
     title: "",

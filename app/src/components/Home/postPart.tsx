@@ -6,9 +6,9 @@ import { State } from "../../types/postTypes";
 export default function Post({ post }: { post: State }) {
 
     return (
-        <article key={post.id} className="flex gap-2 border border-zinc-500/40 rounded-sm justify-between">
+        <article key={post.id} className="flex h-33 gap-2 border border-zinc-500/20 rounded-sm justify-between">
 
-            <div className="p-4 relative min-h-40">
+            <div className="p-4 relative">
                 <h2>{post.title}</h2>
                 <div className="absolute bottom-0">
                     <p>{toFarsiNumber(formatPrice(post.price))} تومان</p>

@@ -2,7 +2,7 @@ import { ALLPOSTS } from "@/MOCKS/POSTS";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
+export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams.get("page") || 1
     const filterPrice = request.nextUrl.searchParams.get("price")
     const val = filterPrice ? filterPrice.split('-') : null

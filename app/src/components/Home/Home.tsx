@@ -30,9 +30,11 @@ export default function HomePage({
       slug,
     });
   }, [page]);
+
   useEffect(() => {
     setPosts(initialPosts);
   }, [initialPosts]);
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (
@@ -53,7 +55,7 @@ export default function HomePage({
   console.log("HomePage Render");
   console.log(initialPosts);
   return (
-    <div className="grid grid-cols-3 w-full gap-7">
+    <div className="grid lg:grid-cols-3 grid-cols-1 w-full gap-3 lg:gap-7">
       {posts.map((post) => (
         <Post post={post} />
       ))}
