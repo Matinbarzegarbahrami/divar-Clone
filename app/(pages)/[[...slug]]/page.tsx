@@ -63,8 +63,7 @@ const [min, max] = priceRange.split("-");
   const category = slug?.[0];
 
   const initialPosts = await getInitialPosts(category, min, max);
-console.log("price:", price);
-console.log("initialPosts:", initialPosts.length);
+
   return (
     <div className="lg:flex block gap-2 w-full p-6 ">
       <MainFrame category={category} initialPosts={initialPosts} />

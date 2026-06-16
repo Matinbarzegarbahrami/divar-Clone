@@ -52,8 +52,7 @@ export default function HomePage({
 
     return () => observer.disconnect();
   }, [loading, hasMore]);
-  console.log("HomePage Render");
-  console.log(initialPosts);
+
   return (
     <div className="grid lg:grid-cols-3 grid-cols-1 w-full gap-3 lg:gap-7">
       {posts.map((post) => (

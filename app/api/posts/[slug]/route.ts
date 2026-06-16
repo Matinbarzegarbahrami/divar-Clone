@@ -18,7 +18,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 		const allPosts = ALLPOSTS.filter((post) => post.category == slug)
 		const showPosts = allPosts.filter((post) => {
 			const price = +post.price
-			console.log("post is :", post.price)
+
 			return (
 				minPrice !== null && maxPrice !== null ? price >= minPrice && price <= maxPrice :
 					minPrice ? price >= minPrice :
@@ -26,11 +26,10 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 							true
 			)
 		});
-		console.log(allPosts)
+
 		
 		const posts = showPosts.slice(min, max)
 
-		console.log("posts:", posts)
 		return NextResponse.json({
 			status: 200,
 			posts: posts
