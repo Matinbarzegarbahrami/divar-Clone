@@ -6,6 +6,8 @@ export type State = {
     description: string;
     category: string;
     address: string;
+    location: string | null;
+    city:string | null;
     price: string;
     createdAt:string;
     // ============ state ==============

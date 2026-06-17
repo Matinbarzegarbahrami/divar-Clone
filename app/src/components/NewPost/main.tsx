@@ -37,6 +37,8 @@ const initialState: State = {
     mileage: undefined,
     gearbox: undefined,
     fuelType: undefined,
+    city:null,
+    location:null,
     price:'',
     owner:{
         phone: null
