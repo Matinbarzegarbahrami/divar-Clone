@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { State } from "../../types/postTypes";
 import { fetchPosts } from "./fetchingdata";
 import Post from "./postPart";
+import { useSearchParams } from 'next/navigation'
 
 export default function HomePage({
   initialPosts,
@@ -16,7 +17,8 @@ export default function HomePage({
   const [page, setPage] = useState(2);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(initialPosts.length > 0);
-
+  const searchParams = useSearchParams()
+  const city = searchParams.get('city') || 'tehran'
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -28,8 +30,9 @@ export default function HomePage({
       page,
       setPost: setPosts,
       slug,
+      city
     });
-  }, [page]);
+  }, [page, city]);
 
   useEffect(() => {
     setPosts(initialPosts);

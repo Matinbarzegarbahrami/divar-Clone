@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
 	const { slug } = await params
 	const searchParams = request.nextUrl.searchParams.get("page") || 1
+    const city = request.nextUrl.searchParams.get("city")
 	const filterPrice = request.nextUrl.searchParams.get("price")
 	const val = filterPrice ? filterPrice.split('-') : null
 
@@ -15,7 +16,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 	const minPrice = val ? val[0] ? +val[0] : 0 : null;
 	const maxPrice = val ? val[1] ? +val[1] : Number.MAX_SAFE_INTEGER : null;
 	try {
-		const allPosts = ALLPOSTS.filter((post) => post.category == slug)
+		const allCPost = ALLPOSTS.filter((post)=>post.city == city)
+		const allPosts = allCPost.filter((post) => post.category == slug)
 		const showPosts = allPosts.filter((post) => {
 			const price = +post.price
 

@@ -28,12 +28,11 @@ const Header = () => {
     const pathname = usePathname();
     const isSearchPage = pathname.startsWith('/s');
     const { isOpen, changeIsOpen } = useRegisterModal();
-     (user)
+    
 
     return (
         <header className="h-16 border-b border-zinc-800 bg-background px-4">
             <nav className="hidden md:flex mx-auto h-full items-center gap-4">
-                {/* RIGHT */}
                 <div className="flex shrink-0 items-center">
                     <h1 className="px-4 text-3xl font-semibold text-primary">دیوار</h1>
                     <div className="h-4 border-l border-zinc-700" />
@@ -44,7 +43,6 @@ const Header = () => {
                     />
                 </div>
 
-                {/* CENTER */}
                 <div className="flex flex-1 items-center gap-2">
                     {isSearchPage && (
                         <>
@@ -96,9 +94,7 @@ const Header = () => {
                 </div>
             </nav>
 
-            {/* Mobile Navigation */}
             <nav className="flex md:hidden flex-col h-full justify-center items-center">
-                {/* Top mobile header */}
                 <div className="flex w-full rounded-sm bg-zinc-700 text-white/87 px-1 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-zinc-800">
                     <div className="flex-1">
                         <SearchBox
@@ -107,7 +103,6 @@ const Header = () => {
                         />
                     </div>
                     <div className="h-8 my-auto w-0.5 bg-zinc-400/5 mx-3"></div>
-                    {/* City selector for mobile */}
                     <CitySelector
                         className="flex shrink-0 items-center gap-1 rounded-md px-3 py-2 text-sm text-white/85"
                         iconSize={16}

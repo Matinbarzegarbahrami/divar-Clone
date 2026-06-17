@@ -1,11 +1,10 @@
-import HomePage from "@/app/src/components/Home/Home";
 import { notFound } from "next/navigation";
 import { State } from "@/app/src/types/postTypes";
-import SideBar from "@/app/src/components/Home/SideBar";
 import { turnToFarsi } from "@/app/src/lib/turnToFarsi";
 import MainFrame from "@/app/src/components/Home/homeFrames";
 
-const BASE_URL = "https://divar-clone-blond.vercel.app";
+// const BASE_URL = "https://divar-clone-blond.vercel.app";
+const BASE_URL = "http://localhost:3000";
 type Props = {
   params: {
     slug?: string[];
@@ -22,15 +21,15 @@ export async function generateMetadata(props: Props) {
   }
   return {
     title: slug ? turnToFarsi(slug[0]) : "دیوار | کلون دیوار",
-    description:"کلون دیوار"
+    description: "کلون دیوار"
   };
 }
 
-async function getInitialPosts(slug?: string, min?:string, max?: string): Promise<State[]> {
+async function getInitialPosts(slug?: string, min?: string, max?: string, city?: string): Promise<State[]> {
 
-  const url = slug 
-    ? `${BASE_URL}/api/posts/${slug}?page=1&price=${min?min:0}-${max?max:Number.MAX_SAFE_INTEGER}`
-    : `${BASE_URL}/api/posts?page=1&price=${min?min:0}-${max?max:Number.MAX_SAFE_INTEGER}`;
+  const url = slug
+    ? `${BASE_URL}/api/posts/${slug}?page=1&price=${min ? min : 0}-${max ? max : Number.MAX_SAFE_INTEGER}&city=${city?city:'tehran'}`
+    : `${BASE_URL}/api/posts?page=1&price=${min ? min : 0}-${max ? max : Number.MAX_SAFE_INTEGER}&city=${city?city:'tehran'}`;
 
   const res = await fetch(url, {
     cache: "no-store",
@@ -49,12 +48,12 @@ export default async function Home({
   searchParams
 }: {
   params: Promise<{ slug?: string[] }>;
-  searchParams: { price?: string };
+  searchParams: { price?: string, city?: string };
 }) {
   const { slug } = await params;
-  const {price} = await searchParams
+  const { price, city } = await searchParams
   const priceRange = price ?? "";
-const [min, max] = priceRange.split("-");
+  const [min, max] = priceRange.split("-");
   if (slug && slug.length > 1) {
     notFound();
   }
@@ -62,11 +61,11 @@ const [min, max] = priceRange.split("-");
 
   const category = slug?.[0];
 
-  const initialPosts = await getInitialPosts(category, min, max);
+  const initialPosts = await getInitialPosts(category, min, max, city);
 
   return (
     <div className="lg:flex block gap-2 w-full p-6 ">
-      <MainFrame category={category} initialPosts={initialPosts} />
+      <MainFrame category={category} initialPosts={initialPosts} city={city}/>
     </div>
 
   );

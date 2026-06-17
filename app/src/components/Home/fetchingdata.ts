@@ -13,6 +13,7 @@ interface FetchPostsProps {
   setPost: Dispatch<SetStateAction<State[]>>;
 
   slug?: string;
+  city: string;
 }
 
 export async function fetchPosts({
@@ -23,6 +24,7 @@ export async function fetchPosts({
   page,
   setPost,
   slug,
+  city
 }: FetchPostsProps) {
   if (loading || !hasMore) return;
 
@@ -30,8 +32,8 @@ export async function fetchPosts({
 
   try {
     const res = slug
-      ? await fetch(`/api/posts/${slug}?page=${page}`)
-      : await fetch(`/api/posts?page=${page}`);
+      ? await fetch(`/api/posts/${slug}?page=${page}&city=${city?city:'tehran'}`)
+      : await fetch(`/api/posts?page=${page}&city=${city?city:'tehran'}`);
 
     const data = await res.json();
 

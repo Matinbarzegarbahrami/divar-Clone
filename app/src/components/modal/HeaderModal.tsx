@@ -5,6 +5,7 @@ import { MapPin, ChevronDown } from 'lucide-react';
 
 import { cityT, useCity } from '@/app/src/store/cityStore';
 import { ToFarsi } from '@/app/src/util/turnToFarsi';
+import { useRouter } from 'next/navigation';
 
 interface City {
   id: string;
@@ -30,6 +31,7 @@ export default function CitySelector({
   const [searchTerm, setSearchTerm] = useState('');
   const [cities, setCities] = useState<City[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -99,6 +101,10 @@ export default function CitySelector({
     setIsOpen(false);
     setSearchTerm('');
   };
+
+  useEffect(()=>{
+    router.push(`?city=${city}`)
+  },[city])
 
   const displayCityName = city
     ? ToFarsi(city)

@@ -1,9 +1,9 @@
 import { ALLPOSTS } from "@/MOCKS/POSTS";
-import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams.get("page") || 1
+    const city = request.nextUrl.searchParams.get("city")
     const filterPrice = request.nextUrl.searchParams.get("price")
     const val = filterPrice ? filterPrice.split('-') : null
 
@@ -14,7 +14,8 @@ export async function GET(request: NextRequest) {
     const minPrice = val ? val[0] ? +val[0] : 0 : null;
     const maxPrice = val ? val[1] ? +val[1] : Number.MAX_SAFE_INTEGER : null;
     try {
-        const allPosts = ALLPOSTS.filter((post) => {
+        const allCPost = city ? ALLPOSTS.filter((post)=>post.city==city) : ALLPOSTS
+        const allPosts = allCPost.filter((post) => {
             const price = +post.price
             return (
                 minPrice !== null && maxPrice !== null ? price >= minPrice && price <= maxPrice :

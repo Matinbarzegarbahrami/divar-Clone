@@ -1,19 +1,23 @@
 'use client';
 import { useEffect, useState } from "react";
 import SetPrice from "./setDilay";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function PriceFilter() {
   const [minPrice, setMinPrice] = useState('')
   const [maxPrice, setMaxPrice] = useState('')
 
-  const router = useRouter()
+  const router = useRouter();
+  const searchParams = useSearchParams();
   useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
 
-    const query = new URLSearchParams();
-    query.set("price", `${minPrice ? minPrice : ""}-${maxPrice || ""}`);
+    params.set(
+      "price",
+      `${minPrice || ""}-${maxPrice || ""}`
+    );
 
-    router.push(`?${query.toString()}`);
+    router.push(`?${params.toString()}`);
   }, [minPrice, maxPrice]);
   return (
     <div className="mt-5">
@@ -27,7 +31,7 @@ export default function PriceFilter() {
           <label htmlFor="max">تا</label>
           <SetPrice setNewValue={setMinPrice} label={'max'} />
         </div>
-        
+
       </div>
 
     </div>
