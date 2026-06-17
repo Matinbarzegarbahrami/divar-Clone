@@ -1,19 +1,3 @@
-export type postsT = {
-  id:string;
-  category:string;
-  title:string;
-  price:number;
-  city:string;
-  location:string;
-  image:string;
-  description:string;
-  status:string;
-  createdAt:string;
-  owner:{
-    phone:string
-  }
-}
-
 export const ALLPOSTS = [
   // =========================
   // موبایل
@@ -25,13 +9,20 @@ export const ALLPOSTS = [
     price: "89500000",
     city: "tehran",
     location: "سعادت آباد",
-    image: "/images/mobile/iphone15pro.jpg",
+    coverImage: null,
+    allImages: [],
     description: "کاملاً سالم، بدون خط و خش، باتری ۹۸ درصد",
     status: "active",
     createdAt: "2025-06-11",
-    owner:{
-        phone:'09123456789'
+    owner: {
+      phone: "09123456789",
     },
+    // مشخصات موبایل
+    ram: 8,
+    storage: 256,
+    color: "طوسی تیتانیوم",
+    warranty: true,
+    batteryHealth: 98,
   },
   {
     id: "2",
@@ -40,13 +31,19 @@ export const ALLPOSTS = [
     price: "69900000",
     city: "tehran",
     location: "ستارخان",
-    image: "/images/mobile/s24ultra.jpg",
+    coverImage: null,
+    allImages: [],
     description: "رجیستر شده، همراه جعبه و لوازم کامل",
     status: "active",
     createdAt: "2025-06-10",
-    owner:{
-        phone:'09123456789'
+    owner: {
+      phone: "09123456789",
     },
+    ram: 12,
+    storage: 256,
+    color: "بنفش",
+    warranty: true,
+    batteryHealth: 100,
   },
 
   // =========================
@@ -59,13 +56,22 @@ export const ALLPOSTS = [
     price: "12500000000",
     city: "tehran",
     location: "پونک",
-    image: "/images/realestate/apartment1.jpg",
+    coverImage: null,
+    allImages: [],
     description: "۲ خوابه، پارکینگ، آسانسور، انباری",
     status: "active",
     createdAt: "2025-06-09",
-    owner:{
-        phone:'09036591941'
+    owner: {
+      phone: "09036591941",
     },
+    // مشخصات ملک
+    area: 120,
+    floor: 4,
+    totalFloors: 10,
+    yearBuilt: 1400,
+    hasElevator: true,
+    hasParking: true,
+    hasWarehouse: true,
   },
   {
     id: "4",
@@ -74,13 +80,21 @@ export const ALLPOSTS = [
     price: "1800000000",
     city: "tehran",
     location: "انقلاب",
-    image: "/images/realestate/apartment2.jpg",
+    coverImage: null,
+    allImages: [],
     description: "نوساز، طبقه سوم، نورگیر عالی",
     status: "active",
     createdAt: "2025-06-08",
-    owner:{
-        phone:'09123456789'
+    owner: {
+      phone: "09123456789",
     },
+    area: 85,
+    floor: 3,
+    totalFloors: 5,
+    yearBuilt: 1402,
+    hasElevator: false,
+    hasParking: true,
+    hasWarehouse: false,
   },
 
   // =========================
@@ -93,13 +107,21 @@ export const ALLPOSTS = [
     price: "980000000",
     city: "tabriz",
     location: "ولیعصر",
-    image: "/images/vehicles/207.jpg",
+    coverImage: null,
+    allImages: [],
     description: "بدون رنگ، ۱۸ هزار کیلومتر کارکرد",
     status: "deactive",
     createdAt: "2025-06-11",
-    owner:{
-        phone:'09036591941'
+    owner: {
+      phone: "09036591941",
     },
+    // مشخصات خودرو
+    brand: "پژو",
+    model: "207",
+    vehicleYear: 1402,
+    mileage: 18000,
+    gearbox: "automatic",
+    fuelType: "petrol",
   },
   {
     id: "6",
@@ -108,13 +130,20 @@ export const ALLPOSTS = [
     price: "1950000000",
     city: "tabriz",
     location: "ولیعصر",
-    image: "/images/vehicles/cerato.jpg",
+    coverImage: null,
+    allImages: [],
     description: "فنی سالم، بیمه یک ساله",
     status: "active",
     createdAt: "2025-06-10",
-    owner:{
-        phone:'09123456789'
+    owner: {
+      phone: "09123456789",
     },
+    brand: "کیا",
+    model: "سراتو",
+    vehicleYear: 2018,
+    mileage: 65000,
+    gearbox: "automatic",
+    fuelType: "petrol",
   },
   {
     id: "7",
@@ -123,12 +152,19 @@ export const ALLPOSTS = [
     price: "145000000",
     city: "tehran",
     location: "احمدآباد",
-    image: "/images/vehicles/honda150.jpg",
+    coverImage: null,
+    allImages: [],
     description: "کم‌کارکرد، سند آماده انتقال",
     status: "active",
     createdAt: "2025-06-07",
-    owner:{
-        phone:'09123456789'
+    owner: {
+      phone: "09123456789",
     },
+    brand: "هوندا",
+    model: "CBF 150",
+    vehicleYear: 1400,
+    mileage: 8500,
+    gearbox: "manual",
+    fuelType: "petrol",
   },
 ];

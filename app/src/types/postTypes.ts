@@ -29,6 +29,9 @@ export type State = {
     mileage?: number;
     gearbox?: "manual" | "automatic";
     fuelType?: "petrol" | "diesel" | "cng" | "hybrid";
+    owner:{
+        phone:string | null
+    }
 };
 
 

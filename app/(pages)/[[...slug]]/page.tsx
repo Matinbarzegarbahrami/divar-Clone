@@ -2,9 +2,10 @@ import { notFound } from "next/navigation";
 import { State } from "@/app/src/types/postTypes";
 import { turnToFarsi } from "@/app/src/lib/turnToFarsi";
 import MainFrame from "@/app/src/components/Home/homeFrames";
+import MainPost from "@/app/src/components/product/mainProduct";
 
-// const BASE_URL = "https://divar-clone-blond.vercel.app";
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://divar-clone-blond.vercel.app";
+// const BASE_URL = "http://localhost:3000";
 type Props = {
   params: {
     slug?: string[];
@@ -28,8 +29,8 @@ export async function generateMetadata(props: Props) {
 async function getInitialPosts(slug?: string, min?: string, max?: string, city?: string): Promise<State[]> {
 
   const url = slug
-    ? `${BASE_URL}/api/posts/${slug}?page=1&price=${min ? min : 0}-${max ? max : Number.MAX_SAFE_INTEGER}&city=${city?city:'tehran'}`
-    : `${BASE_URL}/api/posts?page=1&price=${min ? min : 0}-${max ? max : Number.MAX_SAFE_INTEGER}&city=${city?city:'tehran'}`;
+    ? `${BASE_URL}/api/posts/${slug}?page=1&price=${min ? min : 0}-${max ? max : Number.MAX_SAFE_INTEGER}&city=${city ? city : 'tehran'}`
+    : `${BASE_URL}/api/posts?page=1&price=${min ? min : 0}-${max ? max : Number.MAX_SAFE_INTEGER}&city=${city ? city : 'tehran'}`;
 
   const res = await fetch(url, {
     cache: "no-store",
@@ -43,6 +44,16 @@ async function getInitialPosts(slug?: string, min?: string, max?: string, city?:
   return data.posts;
 }
 
+async function getPost(slug?:string){
+  const res = await fetch(`${BASE_URL}/api/ad/${slug}`)
+  if(!res.ok){
+    return [];
+  }
+  
+  const data = await res.json()
+  return data.post
+}
+
 export default async function Home({
   params,
   searchParams
@@ -54,8 +65,16 @@ export default async function Home({
   const { price, city } = await searchParams
   const priceRange = price ?? "";
   const [min, max] = priceRange.split("-");
-  if (slug && slug.length > 1) {
+  if (slug && slug.length >= 3) {
     notFound();
+  }
+  if (slug && slug.length == 2) {
+    const post = await getPost(slug?.[1])
+    return (
+      <div>
+        <MainPost post={post} />
+      </div>
+    )
   }
 
 
@@ -65,7 +84,7 @@ export default async function Home({
 
   return (
     <div className="lg:flex block gap-2 w-full p-6 ">
-      <MainFrame category={category} initialPosts={initialPosts} city={city}/>
+      <MainFrame category={category} initialPosts={initialPosts} city={city} />
     </div>
 
   );

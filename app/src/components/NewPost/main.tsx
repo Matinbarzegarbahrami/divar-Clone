@@ -37,7 +37,10 @@ const initialState: State = {
     mileage: undefined,
     gearbox: undefined,
     fuelType: undefined,
-    price:''
+    price:'',
+    owner:{
+        phone: null
+    }
 };
 
 export default function MainNewPost() {
