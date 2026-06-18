@@ -4,8 +4,8 @@ import { turnToFarsi } from "@/app/src/lib/turnToFarsi";
 import MainFrame from "@/app/src/components/Home/homeFrames";
 import MainPost from "@/app/src/components/product/mainProduct";
 
-// const BASE_URL = "https://divar-clone-blond.vercel.app";
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://divar-clone-blond.vercel.app";
+// const BASE_URL = "http://localhost:3000";
 type Props = {
   params: {
     slug?: string[];
