@@ -1,4 +1,5 @@
 import { State } from "../../types/postTypes";
+import AlarmModal from "./alarmModal";
 import CallInfo from "./callInfo";
 import PostDynamicFields from "./postDinamycFields";
 import { Share2, Bookmark } from "lucide-react";
@@ -6,13 +7,10 @@ import { Share2, Bookmark } from "lucide-react";
 export default function PostInfo({ post }: { post: State }) {
   return (
     <div className="flex flex-col gap-4 w-full" dir="rtl">
-      {/* عنوان */}
       <h1 className="text-xl font-bold text-white leading-snug">{post.title}</h1>
 
-      {/* زمان و آدرس */}
       <p className="text-sm text-zinc-400">{post.createdAt}</p>
 
-      {/* آیکون‌های اشتراک‌گذاری و ذخیره + دکمه تماس */}
       <div className="flex items-center justify-between">
         <CallInfo phone={post.owner.phone} />
         <div className="flex gap-3 text-zinc-400">
@@ -24,8 +22,8 @@ export default function PostInfo({ post }: { post: State }) {
           </button>
         </div>
       </div>
+      <AlarmModal />
 
-      {/* فیلدهای پویا */}
       <PostDynamicFields post={post} />
 
       {/* توضیحات */}

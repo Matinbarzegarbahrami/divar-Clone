@@ -20,8 +20,8 @@ export default function CallInfo({ phone }: { phone: string | null }) {
             <span className="text-sm text-zinc-400">شماره تلفن</span>
             <span className="text-red-400 font-bold tracking-wide" dir="ltr">{phone}</span>
           </div>
-          <p className="text-xs text-zinc-500 leading-6">
-            درخواست بیعانه، از نشانه‌های کلاهبرداری — برای هر نوع پرداخت از «پرداخت امن» استفاده کنید.
+          <p className="text-white leading-6 bg-zinc-600 rounded-lg p-2">
+            درخواست بیعانه، از نشانه‌های کلاهبرداری <br /> برای هر نوع پرداخت از «پرداخت امن» استفاده کنید.
           </p>
         </div>
       )}

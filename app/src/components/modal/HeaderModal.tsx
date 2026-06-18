@@ -89,7 +89,7 @@ export default function CitySelector({
     }
 
     return cities.filter((c) =>
-      c.name.toLowerCase().includes(searchTerm.toLowerCase())
+      c.label.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [cities, searchTerm]);
 
@@ -132,7 +132,7 @@ export default function CitySelector({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
           <div
             ref={dropdownRef}
-            className="w-72 rounded-xl border border-zinc-800 bg-background shadow-2xl overflow-hidden"
+            className="w-72 rounded-xl border border-zinc-800 bg-zinc-800 shadow-2xl overflow-hidden"
           >
             {error && (
               <div className="p-3 text-sm text-red-500">
@@ -172,7 +172,7 @@ export default function CitySelector({
                     onClick={() =>
                       handleSelectCity(c)
                     }
-                    className="block w-full px-4 py-3 text-right transition hover:bg-zinc-800"
+                    className="block w-full px-4 py-3 text-right transition hover:bg-zinc-800 cursor-pointer"
                   >
                     {c.label}
                   </button>

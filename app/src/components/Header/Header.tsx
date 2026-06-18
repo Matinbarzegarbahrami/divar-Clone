@@ -1,4 +1,3 @@
-// components/Header.tsx (updated)
 'use client';
 
 import { useState } from 'react';
@@ -34,7 +33,7 @@ const Header = () => {
         <header className="h-16 border-b border-zinc-800 bg-background px-4">
             <nav className="hidden md:flex mx-auto h-full items-center gap-4">
                 <div className="flex shrink-0 items-center">
-                    <h1 className="px-4 text-3xl font-semibold text-primary">دیوار</h1>
+                    <Link href={"/"} className="px-4 text-3xl font-semibold text-primary">دیوار</Link>
                     <div className="h-4 border-l border-zinc-700" />
                     <CitySelector
                         className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-white/85 hover:bg-zinc-800 transition-colors"
@@ -111,12 +110,11 @@ const Header = () => {
                 </div>
 
                 {/* Bottom navigation */}
-                <div className="fixed bottom-0 left-0 right-0 flex h-16 items-center bg-zinc-700 h-12 justify-around border-t border-zinc-800 bg-background">
+                <div className="fixed bottom-0 left-0 right-0 flex h-16 items-center bg-zinc-700 h-12 justify-around border-t border-zinc-800 z-50">
                     <Buttons text="آگهی ها" icon={<Home size={18} />} isMobile={true} />
                     <Buttons text="نشان ها" icon={<BookMarked size={18} />} isMobile={true} />
                     <Link href={'new'}><PlusCircle size={18} /> ثبت آگهی</Link>
                     <Buttons text="چت" icon={<MessageCircle size={18} />} isMobile={true} />
-                    {/* mobile dropdown wrapper */}
                     <div className="relative z-9999">
                         <Buttons
                             text="دیوار من"

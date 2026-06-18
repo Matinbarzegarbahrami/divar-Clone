@@ -10,26 +10,26 @@ export default function MainPost({ post }: { post: State }) {
   }, [post.allImages]);
 
   return (
-    <div className="flex justify-center max-w-[980px] mx-auto">
+    <div className="flex flex-col-reverse lg:flex-row gap-4 px-5 relative justify-center max-w-[980px] mx-auto">
       <PostInfo post={post} />
 
-      <div className="w-full">
+      <div className="w-full flex justify-center">
         {images.length > 0 ? (
           images.map((src, index) => (
             <Image
               key={index}
               alt={post.title}
               src={src}
-              width={80}
-              height={80}
+              width={400}
+              height={400}
             />
           ))
         ) : (
           <Image
             alt={post.title}
             src="/images/divar.png"
-            width={80}
-            height={80}
+            width={400}
+            height={400}
           />
         )}
       </div>
