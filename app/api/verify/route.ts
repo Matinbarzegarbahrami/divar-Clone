@@ -40,6 +40,7 @@ export async function POST(request: NextRequest) {
   const token = jwt.sign({
     id: crypto.randomUUID(),
     phone: phone,
+    posts:{}
   },
     process.env.JWT_SECRET!,
     {
@@ -57,7 +58,7 @@ export async function POST(request: NextRequest) {
   
   response.cookies.set("token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: true,
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 7,

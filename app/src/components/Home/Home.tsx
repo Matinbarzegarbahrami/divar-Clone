@@ -36,7 +36,7 @@ export default function HomePage({
 
   useEffect(() => {
     setPosts(initialPosts);
-    alert("پروژه درحال توسعه بزرگ تر شدن و کامل تر شدن است.")
+    // alert("پروژه درحال توسعه بزرگ تر شدن و کامل تر شدن است.")
     setPage(2);
     setHasMore(initialPosts.length > 0);
   }, [initialPosts]);
@@ -90,8 +90,8 @@ export default function HomePage({
 
   return (
     <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3 lg:gap-7">
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
+      {posts.map((post, idx) => (
+        <Post key={idx} post={post} />
       ))}
 
       <div

@@ -1,7 +1,6 @@
 import { PHONES, type PhoneUser } from "@/MOCKS/REGISTER";
 import { randomInt } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
-
 interface SendOtpRequest {
   number: string;
 }
@@ -32,7 +31,8 @@ export async function POST(request: NextRequest) {
       verifyCode,
     });
   }
- (verifyCode)
+  (verifyCode)
+  
   const newUser: PhoneUser = {
     phone,
     logincode: verifyCode,

@@ -4,11 +4,20 @@ import { validateImages } from "@/app/src/validation/imageValidation";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { ALLPOSTS } from "@/MOCKS/POSTS";
+import jwt from "jsonwebtoken";
 
 export async function POST(request: NextRequest) {
     try {
+        const token = request.cookies.get("token")?.value;
+        if (!token) {
+            return Response.json({
+                success: false, error: "invalid token"
+            }
+                , { status: 400 })
+        }
+        const user = jwt.verify(token, process.env.JWT_SECRET!)
+        console.log(user)
         const formData = await request.formData();
-
         const newPost: any = {
             id: String(+(ALLPOSTS.length) + 1),
             title: formData.get("title") as string,
@@ -33,7 +42,7 @@ export async function POST(request: NextRequest) {
             mileage: formData.get("mileage") ? Number(formData.get("mileage")) : undefined,
             gearbox: formData.get("gearbox") as string,
             fuelType: formData.get("fuelType") as string,
-            owner: formData.get("owner") ? {phone:formData.get("owner")} : undefined,
+            owner: formData.get("owner") ? { phone: formData.get("owner") } : undefined,
             allImages: [],
         };
 
@@ -87,6 +96,7 @@ export async function POST(request: NextRequest) {
         }
 
         // ======== server simulation =========
+        console.log(newPost)
         await new Promise((resolve) => setTimeout(resolve, 2000));
         ALLPOSTS.push(newPost)
 

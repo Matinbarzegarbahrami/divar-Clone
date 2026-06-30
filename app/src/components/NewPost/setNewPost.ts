@@ -46,6 +46,7 @@ export async function setNewPost({ state, user }: SetNewPostProps) {
         method: "POST",
         body: formData,
     });
+    console.log("dasdasdasdasdasdasd:", response)
 
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));

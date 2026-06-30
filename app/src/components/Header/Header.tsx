@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { useUser } from '@/app/src/store/userStore';
+import { useEffect, useState } from 'react';
 import {
     ArrowDown,
     BookMarked,
@@ -19,16 +18,34 @@ import Link from 'next/link';
 import { useRegisterModal } from '@/app/src/store/registerModal';
 import Modal from '../registermodal/Modal';
 
+type UserType = {
+    phone?:string;
+    id?:string;
+}
+
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [openNav, setOpenNav] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const { user } = useUser();
+    const [user, setUser] = useState<UserType>({})
     const pathname = usePathname();
     const isSearchPage = pathname.startsWith('/s');
     const { isOpen, changeIsOpen } = useRegisterModal();
-    
-
+    useEffect(()=>{
+        const user = async() => {
+            try{
+                const data = await fetch('/api/profile')
+                if(!data){
+                    return
+                }
+                const res = await data.json()
+                setUser(res.user)
+            } catch (err){
+                return console.error("asdasd")
+            }
+        } 
+        user()
+    },[])
     return (
         <header className="h-16 border-b border-zinc-800 bg-background px-4">
             <nav className="hidden md:flex mx-auto h-full items-center gap-4">
@@ -67,7 +84,7 @@ const Header = () => {
                             <>
                                 <div className='absolute top-full'>
                                     <ul className="w-40 rounded-md border border-zinc-800 bg-zinc-800 text-sm text-white/85 shadow-[0_0px_8px_rgba(255,255,255,0.1)] p-2 z-50">
-                                        {user ?
+                                        {user.phone ?
 
                                             <>
                                                 <li >{user.phone}</li>
