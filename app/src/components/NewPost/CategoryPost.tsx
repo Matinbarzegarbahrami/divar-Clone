@@ -6,6 +6,7 @@ import { X, ChevronLeft } from "lucide-react";
 import { Props } from "../../types/postTypes";
 import { FieldProps, MobileFields, RealEstateFields, VehicleFields } from "./specificFieldsCategory";
 import { CategoryModal } from "./categoryModal";
+import { TextInput } from "./TextFields";
 
 const FIELD_COMPONENTS: Record<string, React.ComponentType<FieldProps>> = {
     realEstate: RealEstateFields,
@@ -50,7 +51,13 @@ export function CategoryStep({ state, dispatch }: Props) {
                 </div>
             </div>
 
-            {DynamicFields && <DynamicFields state={state} dispatch={dispatch} />}
+            {DynamicFields && 
+            <><DynamicFields state={state} dispatch={dispatch} />
+            <TextInput 
+            label="قیمت"
+            value={state.price || ""}
+            onChange={(e: any) => dispatch({ type: "SET_PRICE", payload: e.target.value })} />
+            </>}
 
             <CategoryModal
                 isOpen={isModalOpen}

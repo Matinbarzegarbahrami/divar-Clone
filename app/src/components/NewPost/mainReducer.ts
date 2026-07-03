@@ -31,7 +31,7 @@ export function reducer(state: State, action: Action): State {
         case "SET_ADDRESS":
             return { ...state, address: action.payload };
         case "SET_PRICE":
-            return { ...state, price: action.payload };
+            return { ...state, price: Number(action.payload) };
         // ========== state fields ==========
         case "SET_AREA":
             return { ...state, area: action.payload };

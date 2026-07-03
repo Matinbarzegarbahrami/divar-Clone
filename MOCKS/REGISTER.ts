@@ -1,6 +1,9 @@
 export interface PhoneUser {
   phone: string;
-  logincode: string;
+  verifyCode: number | string;
+  id?:number;
+  posts?: any[];
+  likes?: any[];
 }
 
 export const PHONES: PhoneUser[] = []

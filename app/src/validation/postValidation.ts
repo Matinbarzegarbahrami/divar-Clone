@@ -4,7 +4,7 @@ import { State } from "../types/postTypes";
 export function validatePost(
   post: State
 ): ValidationResult {
-
+console.log(post)
   if (!post.title?.trim()) {
     return {
       success: false,
@@ -26,7 +26,7 @@ export function validatePost(
     };
   }
 
-  if (!post.address?.trim()) {
+  if (!post.location?.trim()) {
     return {
       success: false,
       error: "آدرس الزامی است",

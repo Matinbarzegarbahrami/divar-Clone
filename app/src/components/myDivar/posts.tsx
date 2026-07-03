@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 const showPostsItem = [
   { id: 1, name: "all", label: "همه" },
   { id: 2, name: "active", label: "فعال" },
-  { id: 3, name: "semi-active", label: "نیمه فعال" },
+  { id: 3, name: "semi_active", label: "نیمه فعال" },
   { id: 4, name: "deactive", label: "غیرفعال" },
 ] as const;
 
@@ -14,27 +14,34 @@ type ShowPost = (typeof showPostsItem)[number]["name"];
 
 export default function MyPosts() {
   const [showPost, setShowPost] = useState<ShowPost>("all");
+  const [post, setPost] = useState([] as { id: number; name: ShowPost; label: string }[]);
 
   const router = useRouter()
-  useEffect(()=>{
-    const user = async() =>{
-      try{
+  useEffect(() => {
+    const user = async () => {
+      try {
         const data = await fetch('/api/profile')
-         console.log(data)
-        if(!data.ok){
+        console.log(data)
+        if (!data.ok) {
           alert("مشکلی پیش آمده.")
           router.push("/")
         }
-      const res = await data.json()
-      if (!res.token){
-        router.push("/")
-      }
-      } catch (err){
-         (err)
+        const res = await data.json()
+
+        if (!res.user) {
+          router.push("/")
+        }
+        setPost(res.posts)
+      } catch (err) {
+        (err)
       }
     }
     user()
-  },[])
+
+    return () => {
+      setPost([])
+    }
+  }, [])
 
   return (
     <div className="container mx-auto px-4">
@@ -44,11 +51,10 @@ export default function MyPosts() {
             key={item.id}
             type="button"
             onClick={() => setShowPost(item.name)}
-            className={`p-2 cursor-pointer transition-colors ${
-              showPost === item.name
+            className={`p-2 cursor-pointer transition-colors ${showPost === item.name
                 ? "border-b-2 border-primary text-primary"
                 : "hover:text-primary"
-            }`}
+              }`}
           >
             {item.label}
           </button>
@@ -56,7 +62,7 @@ export default function MyPosts() {
       </div>
 
       <div className="h-0.5 bg-amber-50/10" />
-        <MyPostList status={showPost}/>
+      <MyPostList status={showPost} />
       <div>
       </div>
     </div>

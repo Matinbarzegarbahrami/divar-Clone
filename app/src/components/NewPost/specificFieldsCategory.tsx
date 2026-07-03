@@ -26,10 +26,7 @@ export const RealEstateFields = ({ state, dispatch }: FieldProps) => (
             value={state.totalFloors || ""}
             onChange={(e: any) => dispatch({ type: "SET_TOTAL_FLOORS", payload: Number(e.target.value) })}
         />
-        <TextInput 
-            label="قیمت"
-            value={state.price || ""}
-            onChange={(e: any) => dispatch({ type: "SET_PRICE", payload: e.target.value })} />
+        
         <Checkbox
             checked={state.hasElevator || false}
             onChange={(e: any) => dispatch({ type: "SET_HAS_ELEVATOR", payload: e.target.checked })}
@@ -88,10 +85,7 @@ export const MobileFields = ({ state, dispatch }: FieldProps) => (
             onChange={(e: any) => dispatch({ type: "SET_WARRANTY", payload: e.target.checked })}
             label="دارای گارانتی"
         />
-        <TextInput 
-            label="قیمت"
-            value={state.price || ""}
-            onChange={(e: any) => dispatch({ type: "SET_PRICE", payload: e.target.value })} />
+        
         <NumberInput
             label="سلامت باتری (%)"
             value={state.batteryHealth || ""}
@@ -138,10 +132,7 @@ export const VehicleFields = ({ state, dispatch }: FieldProps) => (
                 { value: "automatic", label: "اتوماتیک" },
             ]}
         />
-        <TextInput 
-            label="قیمت"
-            value={state.price || ""}
-            onChange={(e: any) => dispatch({ type: "SET_PRICE", payload: e.target.value })} />
+        
         <Select
             label="نوع سوخت"
             value={state.fuelType || ""}

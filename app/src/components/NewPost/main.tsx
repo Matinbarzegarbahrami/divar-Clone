@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { ALLPOSTS } from "@/MOCKS/POSTS";
 import { setNewPost } from "./setNewPost";
 import { useUser } from "../../store/userStore";
+import { useCity } from "../../store/cityStore";
 
 const initialState: State = {
     id:'',
@@ -39,7 +40,7 @@ const initialState: State = {
     fuelType: undefined,
     city:null,
     location:null,
-    price:'',
+    price:0,
     owner:{
         phone: null
     }
@@ -52,9 +53,12 @@ export default function MainNewPost() {
 
     const router = useRouter();
     const { user } = useUser();
+    const { city } = useCity();
+    console.log(city ? city : "tehran")
 
     const nextStepHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        console.log(state.price)
 
         if (step === 1) {
             if (!state.title || !state.description || !state.allImages.length) return;
@@ -68,6 +72,8 @@ export default function MainNewPost() {
 
         if (step === 2) {
             setLoading(true);
+            
+            state.cityId = city;
             try {
                 const props = {
                     state: state,

@@ -84,7 +84,7 @@ const Header = () => {
                             <>
                                 <div className='absolute top-full'>
                                     <ul className="w-40 rounded-md border border-zinc-800 bg-zinc-800 text-sm text-white/85 shadow-[0_0px_8px_rgba(255,255,255,0.1)] p-2 z-50">
-                                        {user.phone ?
+                                        {user ?
 
                                             <>
                                                 <li >{user.phone}</li>

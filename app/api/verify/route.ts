@@ -1,5 +1,6 @@
 import { PHONES, type PhoneUser } from "@/MOCKS/REGISTER";
 import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/app/src/lib/prisma";
 import jwt from "jsonwebtoken"
 interface VerifyRequest {
   phone: string;
@@ -17,9 +18,9 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const user: PhoneUser | undefined = PHONES.find(
-    (u) => u.phone === phone
-  );
+  const user: PhoneUser | null = await prisma.user.findFirst({
+    where: { phone },
+  });
 
   if (!user) {
     return NextResponse.json(
@@ -28,19 +29,18 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (user.logincode !== code) {
+  if (user.verifyCode !== code) {
     return NextResponse.json(
       { message: "Invalid verification code" },
       { status: 401 }
     );
   }
 
-  user.logincode = "";
+  user.verifyCode = "";
 
   const token = jwt.sign({
-    id: crypto.randomUUID(),
+    id: user.id,
     phone: phone,
-    posts:{}
   },
     process.env.JWT_SECRET!,
     {
@@ -48,6 +48,12 @@ export async function POST(request: NextRequest) {
     }
   )
 
+  await prisma.user.update({
+    where:{phone:phone},
+    data:{
+      verifyCode: "",
+    }
+  })
   const response = NextResponse.json({
     message: "Verification successful",
     user: {

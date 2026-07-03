@@ -1,17 +1,21 @@
-'use client';
+"use client";
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { MapPin, ChevronDown } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { MapPin, ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-import { cityT, useCity } from '@/app/src/store/cityStore';
-import { ToFarsi } from '@/app/src/util/turnToFarsi';
-import { useRouter } from 'next/navigation';
+import { cityT, useCity } from "@/app/src/store/cityStore";
+import { ToFarsi } from "@/app/src/util/turnToFarsi";
 
-interface City {
+// نوع داده‌ای که از API می‌آید (name از نوع string است)
+interface CityFromApi {
   id: string;
-  name: cityT;
+  name: string;      // ← string
   label: string;
 }
+
+// نوع مورد استفاده در کامپوننت (برای نگهداری در state)
+interface City extends CityFromApi {}
 
 interface CitySelectorProps {
   className?: string;
@@ -21,14 +25,14 @@ interface CitySelectorProps {
 }
 
 export default function CitySelector({
-  className = '',
+  className = "",
   iconSize = 18,
   showArrow = true,
   onCityChange,
 }: CitySelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [cities, setCities] = useState<City[]>([]);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -38,31 +42,26 @@ export default function CitySelector({
 
   const { city, setCity } = useCity();
 
+  // دریافت لیست شهرها از API
   useEffect(() => {
     const fetchCities = async () => {
       try {
         setLoading(true);
-
-        const res = await fetch('/api/city');
-
-        if (!res.ok) {
-          throw new Error('Failed to fetch cities');
-        }
-
+        const res = await fetch("/api/city");
+        if (!res.ok) throw new Error("Failed to fetch cities");
         const data: City[] = await res.json();
-
         setCities(data);
         setError(null);
       } catch (err) {
-        setError('خطا در بارگذاری شهرها');
+        setError("خطا در بارگذاری شهرها");
       } finally {
         setLoading(false);
       }
     };
-
     fetchCities();
   }, []);
 
+  // بستن منو با کلیک بیرون
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
@@ -75,40 +74,39 @@ export default function CitySelector({
         setIsOpen(false);
       }
     };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // فیلتر بر اساس جستجو
   const filteredCities = useMemo(() => {
-    if (!searchTerm.trim()) {
-      return cities;
-    }
-
+    if (!searchTerm.trim()) return cities;
     return cities.filter((c) =>
       c.label.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [cities, searchTerm]);
 
+  // انتخاب شهر – تبدیل رشته به cityT و ذخیره در store
   const handleSelectCity = (selectedCity: City) => {
-    setCity(selectedCity.name);
-
+    const cityObject: cityT = {
+      name: selectedCity.name,   // name از API رشته است
+      id: Number(selectedCity.id),
+      posts: [],
+    };
+    setCity(cityObject);
     onCityChange?.(selectedCity);
-
     setIsOpen(false);
-    setSearchTerm('');
+    setSearchTerm("");
   };
 
-  useEffect(()=>{
-    router.push(`?city=${city}`)
-  },[city])
+  // بروزرسانی کوئری URL با نام شهر
+  useEffect(() => {
+    if (city?.name) {
+      router.push(`?city=${city.name}`);
+    }
+  }, [city, router]);
 
-  const displayCityName = city
-    ? ToFarsi(city)
-    : 'انتخاب شهر';
+  const displayCityName = city ? ToFarsi(city) : "انتخاب شهر";
 
   return (
     <div className="relative">
@@ -118,14 +116,8 @@ export default function CitySelector({
         className={className}
       >
         <MapPin size={iconSize} />
-
-        <span>
-          {loading ? '...' : displayCityName}
-        </span>
-
-        {showArrow && (
-          <ChevronDown size={iconSize - 2} />
-        )}
+        <span>{loading ? "..." : displayCityName}</span>
+        {showArrow && <ChevronDown size={iconSize - 2} />}
       </button>
 
       {isOpen && (
@@ -134,17 +126,11 @@ export default function CitySelector({
             ref={dropdownRef}
             className="w-72 rounded-xl border border-zinc-800 bg-zinc-800 shadow-2xl overflow-hidden"
           >
-            {error && (
-              <div className="p-3 text-sm text-red-500">
-                {error}
-              </div>
-            )}
+            {error && <div className="p-3 text-sm text-red-500">{error}</div>}
 
             <input
               value={searchTerm}
-              onChange={(e) =>
-                setSearchTerm(e.target.value)
-              }
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full border-b border-zinc-800 bg-transparent px-4 py-3 outline-none"
               placeholder="جستجوی شهر..."
             />
@@ -155,23 +141,17 @@ export default function CitySelector({
                   در حال دریافت شهرها...
                 </div>
               )}
-
-              {!error &&
-                !loading &&
-                filteredCities.length === 0 && (
-                  <div className="p-4 text-center text-sm text-zinc-400">
-                    شهری پیدا نشد
-                  </div>
-                )}
-
+              {!error && !loading && filteredCities.length === 0 && (
+                <div className="p-4 text-center text-sm text-zinc-400">
+                  شهری پیدا نشد
+                </div>
+              )}
               {!error &&
                 !loading &&
                 filteredCities.map((c) => (
                   <button
                     key={c.id}
-                    onClick={() =>
-                      handleSelectCity(c)
-                    }
+                    onClick={() => handleSelectCity(c)}
                     className="block w-full px-4 py-3 text-right transition hover:bg-zinc-800 cursor-pointer"
                   >
                     {c.label}

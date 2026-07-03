@@ -1,3 +1,5 @@
-export function ToFarsi(text:string){
-    return text == 'tehran' ? "تهران" : "تبریز"
+import { cityT } from "../store/cityStore";
+
+export function ToFarsi(city: cityT): string {
+  return city.name === "tehran" ? "تهران" : "تبریز";
 }

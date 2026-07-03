@@ -22,6 +22,15 @@ export async function setNewPost({ state, user }: SetNewPostProps) {
     if (state.ram !== undefined) formData.append("ram", String(state.ram));
     if (state.storage !== undefined) formData.append("storage", String(state.storage));
     formData.append("color", state.color || "");
+switch (state.cityId) {
+  case "tehran":
+    formData.append("cityId", "1");
+    break;
+  case "tabriz":
+    formData.append("cityId", "2");
+    break;
+}
+formData.append("price", String(state.price));
     formData.append("warranty", String(state.warranty));
     if (state.batteryHealth !== undefined) formData.append("batteryHealth", String(state.batteryHealth));
     formData.append("brand", state.brand || "");

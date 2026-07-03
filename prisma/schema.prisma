@@ -1,13 +1,103 @@
-// generator client {
-//   provider = "prisma-client-js"
-// }
+generator client {
+  provider = "prisma-client-js"
+}
 
-// datasource db {
-//   provider = "sqlite"
-//   url      = env("DATABASE_URL")
-// }
+datasource db {
+  provider = "postgresql"
+}
 
-// model User {
-//   id Int @id @default(autoincrement())
-//   phone String @unique
-// }
+// ============================
+//  Enum‌ها
+// ============================
+
+enum Category {
+  mobile
+  realEstate
+  vehicle
+}
+
+enum Status {
+  ACTIVE
+  SEMI_ACTIVE
+  DEACTIVE
+}
+
+enum Gearbox {
+  MANUAL
+  AUTOMATIC
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  ELECTRIC
+}
+
+// ============================
+//  مدل‌های اصلی
+// ============================
+
+model User {
+  id       Int    @id @default(autoincrement())
+  phone    String @unique
+  verifyCode String 
+  posts    Post[]
+  likes    Like[]
+}
+
+model City {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  posts Post[]
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  category    Category
+  title       String
+  price       Int
+  location    String  
+  coverImage  String?
+  allImages   Json? 
+  description String
+  status      Status
+  createdAt   DateTime @default(now())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+  cityId Int
+  city   City @relation(fields: [cityId], references: [id])
+
+  ram           Int?
+  storage       Int?
+  color         String?
+  warranty      Boolean?
+  batteryHealth Int?
+
+  area          Int?
+  floor         Int?
+  totalFloors   Int?
+  yearBuilt     Int?
+  hasElevator   Boolean?
+  hasParking    Boolean?
+  hasWarehouse  Boolean?
+
+  brand        String?
+  model        String?
+  vehicleYear  Int?
+  mileage      Int?
+  gearbox      Gearbox?
+  fuelType     FuelType?
+
+  likes Like[]
+}
+
+model Like {
+  id     Int @id @default(autoincrement())
+  userId Int
+  postId Int
+  user   User @relation(fields: [userId], references: [id])
+  post   Post @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
+}

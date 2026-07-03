@@ -1,3 +1,5 @@
+import { cityT } from "../store/cityStore";
+
 export type State = {
     id:string | number
     coverImage: File | null | string;
@@ -8,7 +10,8 @@ export type State = {
     address: string;
     location: string | null;
     city:string | null;
-    price: string;
+    cityId?:cityT | null;
+    price: number;
     createdAt:string;
     // ============ state ==============
     area?: number;

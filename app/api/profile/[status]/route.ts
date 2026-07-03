@@ -1,35 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ALLPOSTS } from "@/MOCKS/POSTS";
 import jwt from "jsonwebtoken"
+import prisma from "@/app/src/lib/prisma";
+import { Status } from "@prisma/client";
+export async function GET(req: NextRequest, { params }: { params: { status: string } }) {
+  const token = req.cookies.get("token")?.value;
+  if (!token) return NextResponse.json({}, { status: 401 });
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ status: string }> }
-) {
-  const { status } = await params;
+  const { id } = jwt.verify(token, process.env.JWT_SECRET!) as any;
 
-    const token = request.cookies.get("token")?.value;
+  
+  const {status} = await params
+  console.log(status.toUpperCase())
+  const posts = await prisma.post.findMany({
+    where: {
+      userId: Number(id),
+      ...(status && status !== "all"
+        ? { status: status.toUpperCase() as Status }
+        : {}),
+    },
+  });
+  console.log(posts)
 
-    if (!token) {
-        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
-    const payload = jwt.verify(token, process.env.JWT_SECRET!) as any;
-
-    const phone = payload?.phone;
-
-    if(status=='all'){
-        const userpost = ALLPOSTS.filter(
-        (post) => post.owner.phone === phone
-    )
-        return NextResponse.json({ posts: userpost });
-    }
-    const userpost = ALLPOSTS.filter(
-        (post) => post.owner.phone === phone
-    )
-    .filter((post)=>(
-        post.status == status
-    ));
-
-    return NextResponse.json({ posts: userpost });
+  return NextResponse.json({ posts });
 }
