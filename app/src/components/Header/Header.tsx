@@ -35,10 +35,12 @@ const Header = () => {
         const user = async() => {
             try{
                 const data = await fetch('/api/profile')
+                console.log("data:", data)
                 if(!data){
                     return
                 }
                 const res = await data.json()
+                console.log(res)
                 setUser(res.user)
             } catch (err){
                 return console.error("asdasd")

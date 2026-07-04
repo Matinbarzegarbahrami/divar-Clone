@@ -3,6 +3,9 @@ import AlarmModal from "./alarmModal";
 import CallInfo from "./callInfo";
 import PostDynamicFields from "./postDinamycFields";
 import { Share2, Bookmark } from "lucide-react";
+import saveBookMark from "./saveToBookmark";
+import SaveBookMarkButton from "./saveToBookmark";
+
 
 export default function PostInfo({ post }: { post: State }) {
   return (
@@ -17,9 +20,7 @@ export default function PostInfo({ post }: { post: State }) {
           <button className="hover:text-white transition-colors">
             <Share2 size={18} />
           </button>
-          <button className="hover:text-white transition-colors">
-            <Bookmark size={18} />
-          </button>
+          <SaveBookMarkButton id={post.id} />
         </div>
       </div>
       <AlarmModal />

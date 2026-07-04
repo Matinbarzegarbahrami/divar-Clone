@@ -30,9 +30,7 @@ if (loading) {
   }
 return (
     <div>
-        <Suspense fallback={<div>Loading...</div>}>
-        <div>{post?.title}</div>
-        </Suspense>
+    
    
 
     </div>

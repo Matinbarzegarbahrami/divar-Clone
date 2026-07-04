@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import prisma from "@/app/src/lib/prisma";
 
-type DataT = {
+export type DataT = {
     id:string;
     phone:string;
     iat:number;
