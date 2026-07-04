@@ -29,8 +29,8 @@ export async function generateMetadata(props: Props) {
 async function getInitialPosts(slug?: string, min?: string, max?: string, city?: string): Promise<State[]> {
 
   const url = slug
-    ? `${BASE_URL}/api/posts/${slug}?page=1&price=${min ? min : 0}-${max ? max : Number.MAX_SAFE_INTEGER}&city=${city ? city : 'tehran'}`
-    : `${BASE_URL}/api/posts?page=1&price=${min ? min : 0}-${max ? max : Number.MAX_SAFE_INTEGER}&city=${city ? city : 'tehran'}`;
+    ? `${BASE_URL}/api/posts/${slug}?page=1&price=${min ? min : 0}-${max ? max : 2147483647}&city=${city ? city : 'tehran'}`
+    : `${BASE_URL}/api/posts?page=1&price=${min ? min : 0}-${max ? max : 2147483647}&city=${city ? city : 'tehran'}`;
 
   const res = await fetch(url, {
     cache: "no-store",

@@ -1,5 +1,4 @@
 import prisma from "@/app/src/lib/prisma";
-import { ALLPOSTS } from "@/MOCKS/POSTS";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -15,8 +14,8 @@ export async function GET(req: NextRequest) {
     const [min, max] = price.split("-").map(Number);
 
     priceFilter = {
-      ...(min ? { gte: min } : {}),
-      ...(max ? { lte: max } : {}),
+      gte: min,
+      lte: max,
     };
   }
 
@@ -30,10 +29,15 @@ export async function GET(req: NextRequest) {
           }
         : {}),
 
+      status: "ACTIVE",
+
       ...(Object.keys(priceFilter).length
         ? { price: priceFilter }
         : {}),
     },
+
+    skip: (page - 1) * 10,
+    take: 10,
   });
 
   return NextResponse.json({ posts });

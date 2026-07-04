@@ -1,52 +1,69 @@
+import prisma from "@/app/src/lib/prisma";
 import { ALLPOSTS } from "@/MOCKS/POSTS";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { Category } from "@prisma/client";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
-	const { slug } = await params
-	const searchParams = request.nextUrl.searchParams.get("page") || 1
-    const city = request.nextUrl.searchParams.get("city")
-	const filterPrice = request.nextUrl.searchParams.get("price")
-	const val = filterPrice ? filterPrice.split('-') : null
+  const { searchParams } = request.nextUrl;
+  const { slug } = await params;
 
-	const min = (+(searchParams) - 1) * 10
-	const max = +(searchParams) * 10
+  const page = Number(searchParams.get("page") ?? 1);
+  const city = searchParams.get("city");
+  const price = searchParams.get("price");
+
+  const isValidCategory =
+    slug && Object.values(Category).includes(slug as Category);
 
 
-	const minPrice = val ? val[0] ? +val[0] : 0 : null;
-	const maxPrice = val ? val[1] ? +val[1] : Number.MAX_SAFE_INTEGER : null;
-	try {
-		const allCPost = ALLPOSTS.filter((post)=>post.city == city)
-		const allPosts = allCPost.filter((post) => post.category == slug)
-		const showPosts = allPosts.filter((post) => {
-			const price = +post.price
+  let priceFilter = {};
 
-			return (
-				minPrice !== null && maxPrice !== null ? price >= minPrice && price <= maxPrice :
-					minPrice ? price >= minPrice :
-						maxPrice ? price <= maxPrice :
-							true
-			)
-		});
+  if (price) {
 
-		
-		const posts = showPosts.slice(min, max)
+    const [min, max] = price.split("-").map(Number);
 
-		return NextResponse.json({
-			status: 200,
-			posts: posts
-		})
-	} catch (error) {
-		console.error("خطا در دریافت آگهی‌ها:", error);
+    priceFilter = {
+      gte: min,
+      lte: max,
+    };
+  }
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        ...(city ? {
+          city: {
+            name: city
+          }
+        } : {}),
 
-		return NextResponse.json(
-			{
-				status: 500,
-				message: "خطایی در پردازش درخواست رخ داد.",
-			},
-			{
-				status: 500,
-			}
-		);
-	}
+        ...(isValidCategory
+          ? { category: slug as Category }
+          : {}),
+
+        ...(Object.keys(priceFilter).length
+          ? { price: priceFilter }
+          : {}),
+      },
+
+      skip: (page - 1) * 10,
+      take: 10,
+
+    })
+    return NextResponse.json({
+      status: 200,
+      posts: posts
+    })
+  } catch (error) {
+    console.error("خطا در دریافت آگهی‌ها:", error);
+
+    return NextResponse.json(
+      {
+        status: 500,
+        message: "خطایی در پردازش درخواست رخ داد.",
+      },
+      {
+        status: 500,
+      }
+    );
+  }
 }

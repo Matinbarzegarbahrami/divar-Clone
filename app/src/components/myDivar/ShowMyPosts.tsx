@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { State } from "../../types/postTypes";
+import Link from "next/link";
 
 export default function MyPostList({ status }: { status: string }) {
   const [posts, setPosts] = useState<State[]>([]);
@@ -54,7 +55,8 @@ export default function MyPostList({ status }: { status: string }) {
             : "/images/divar.png";
 
         return (
-          <div
+          <Link
+            href={`/my-divar/my-posts/${item.id}`}
             key={item.id}
             className="flex gap-4 border border-zinc-700 rounded-xl p-3 bg-zinc-900/30 hover:bg-zinc-900/50 transition"
           >
@@ -97,7 +99,7 @@ export default function MyPostList({ status }: { status: string }) {
                 </p>
               </div>
             </div>
-          </div>
+          </Link>
         );
       })}
     </div>
