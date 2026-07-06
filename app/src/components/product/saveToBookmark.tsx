@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 async function isSaveToBookMark(id: string | number) {
     try {
         const res = await fetch(`/api/posts/${id}/bookmark`);
-        console.log(res)
         if (res.status === 401) {
             const item = localStorage.getItem("BookMark");
             const items = JSON.parse(item || "[]");
@@ -14,7 +13,6 @@ async function isSaveToBookMark(id: string | number) {
             return items.includes(id);
         }
         const data = await res.json()
-        console.log(data)
         if (data.message == "notBook"){
             return false
         }
@@ -46,7 +44,6 @@ async function saveToBookMark(id: number | string) {
             return;
         }
 
-        console.log(await res.json());
     } catch (err) {
         console.error(err);
     }

@@ -56,7 +56,6 @@ formData.append("price", String(state.price));
         method: "POST",
         body: formData,
     });
-    console.log("dasdasdasdasdasdasd:", response)
 
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));

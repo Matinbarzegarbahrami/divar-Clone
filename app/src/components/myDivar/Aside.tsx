@@ -15,7 +15,6 @@ export default async function Aside({ user }: { user: User }) {
   const router = useRouter()
   const params = usePathname()
   const param = params.split("/")[2]
-  console.log(user)
   if (user.status == 401){
     
     alert("لطفا وارد شوید.")

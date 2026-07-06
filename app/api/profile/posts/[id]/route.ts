@@ -11,7 +11,6 @@ export async function GET(request: NextRequest,{ params}: { params: Promise<{id:
         return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
     const user = jwt.verify(token,process.env.JWT_SECRET!) as DataT;
-console.log(user)
     const post = await prisma.post.findUnique({
         where: {
             id: Number(id),

@@ -53,11 +53,9 @@ export default function MainNewPost() {
     const router = useRouter();
     const { user } = useUser();
     const { city } = useCity();
-    console.log(city ? city : "tehran")
 
     const nextStepHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log(state.price)
 
         if (step === 1) {
             if (!state.title || !state.description || !state.allImages.length) return;

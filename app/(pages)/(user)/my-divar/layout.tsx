@@ -8,7 +8,6 @@ const BASE_URL = "http://localhost:3000";
 
 async function getUserData() {
   const cookie = await cookies() 
-  console.log(cookie.toString())
   const res = await fetch(`${BASE_URL}/api/profile`,
     {
       headers:{
@@ -21,7 +20,6 @@ async function getUserData() {
   }
   const data = await res.json();
   
-  console.log("data:", data)
   return data.user;
 }
 
@@ -33,7 +31,6 @@ export default async function UserLayout({
 }) {
 
   const user = await getUserData();
-console.log(user)
   return <main className="flex-1 flex  p-8 overflow-y-auto">
     <Aside user={user} />
     {children}

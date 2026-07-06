@@ -1,7 +1,7 @@
 import { cityT } from "../store/cityStore";
 
 export type State = {
-    id:string | number
+    id: string | number
     coverImage: File | null | string;
     allImages: File[];
     title: string;
@@ -9,10 +9,10 @@ export type State = {
     category: string;
     address: string;
     location: string | null;
-    city:string | null;
-    cityId?:"tabriz" | "tehran" | cityT | null;
+    city: string | null;
+    cityId?: "tabriz" | "tehran" | cityT | null | 1 | 2;
     price: number;
-    createdAt:string;
+    createdAt: string;
     // ============ state ==============
     area?: number;
     floor?: number;
@@ -34,8 +34,8 @@ export type State = {
     mileage?: number;
     gearbox?: "manual" | "automatic";
     fuelType?: "petrol" | "diesel" | "cng" | "hybrid";
-    owner:{
-        phone:string | null
+    owner: {
+        phone: string | null
     }
 };
 
@@ -45,7 +45,7 @@ export type Action =
     | { type: "SET_DESCRIPTION"; payload: string }
     | { type: "ADD_IMAGES"; payload: File[] }
     | { type: "REMOVE_IMAGE"; payload: number }
-    | { type: "SET_COVER"; payload: File | null | string}
+    | { type: "SET_COVER"; payload: File | null | string }
     | { type: "SET_CATEGORY"; payload: string }
     | { type: "SET_ADDRESS"; payload: string }
     | { type: "SET_PRICE"; payload: string }
@@ -72,7 +72,7 @@ export type Action =
     | { type: "SET_RESET"; payload: State }
     | { type: "SET_FUEL_TYPE"; payload: "petrol" | "diesel" | "cng" | "hybrid" };
 
-    
+
 export type Props = {
     state: State;
     dispatch: (action: Action) => void;

@@ -39,7 +39,6 @@ export async function POST(request: NextRequest) {
     const location = formData.get("address")  || "asd"
     const price = Number(formData.get("price"));
     const cityId = Number(formData.get("cityId"));
-    console.log(price)
     // ۴. دریافت فیلدهای اختیاری بر اساس دسته‌بندی
     const optionalFields: any = {};
 
@@ -116,7 +115,6 @@ export async function POST(request: NextRequest) {
       ...optionalFields,
     };
 
-    console.log("post data:", postData.cityId)
     // ۷. اعتبارسنجی نهایی (با استفاده از Zod یا هر کتابخانه‌ای)
     const postValidation = validatePost(postData);
     if (!postValidation.success) {
@@ -125,7 +123,6 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    console.log("[post data] : ", postData)
     const newPost = await prisma.post.create({
       data: postData,
     });

@@ -21,7 +21,6 @@ export default function MyPosts() {
     const user = async () => {
       try {
         const data = await fetch('/api/profile')
-        console.log(data)
         if (!data.ok) {
           alert("مشکلی پیش آمده.")
           router.push("/")

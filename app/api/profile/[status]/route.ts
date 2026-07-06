@@ -10,7 +10,6 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ stat
 
   
   const {status} = await params
-  console.log(status.toUpperCase())
   const posts = await prisma.post.findMany({
     where: {
       userId: Number(id),
@@ -19,7 +18,6 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ stat
         : {}),
     },
   });
-  console.log(posts)
 
   return NextResponse.json({ posts });
 }

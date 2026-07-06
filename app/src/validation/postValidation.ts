@@ -4,7 +4,6 @@ import { State } from "../types/postTypes";
 export function validatePost(
   post: State
 ): ValidationResult {
-console.log(post)
   if (!post.title?.trim()) {
     return {
       success: false,

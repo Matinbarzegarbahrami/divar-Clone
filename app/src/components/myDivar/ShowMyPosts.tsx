@@ -64,8 +64,8 @@ export default function MyPostList({ status }: { status: string }) {
               <Image
                 src={imageSrc}
                 alt={item.title}
-                width={128}
-                height={128}
+                width={32}
+                height={32}
                 className="w-full h-full object-cover rounded-lg"
               />
             </div>
@@ -77,31 +77,41 @@ export default function MyPostList({ status }: { status: string }) {
                 </h2>
 
                 <p className="text-sm text-zinc-400 mt-1">
-                  {item.city}، {item.location}
+                  {item.cityId == 1 ? "تهران" : item.cityId == 2 ? "تبریز" : ""}
+                </p>
+
+                <p className="text-sm text-zinc-400 mt-1">
+                {item.description.length > 100
+                    ? item.description.substring(0, 100) + "..."
+                    : item.description}
                 </p>
               </div>
 
               <div className="space-y-1 mt-3">
                 <p className="text-lg font-bold text-white">
-                  ودیعه: {Number(item.price).toLocaleString()} تومان
+                  قیمت: {Number(item.price).toLocaleString()} تومان
                 </p>
 
-                <p className="text-sm text-zinc-300">
-                  اجاره:{" "}
-                  {Math.round(
-                    Number(item.price) / 48
-                  ).toLocaleString()}{" "}
-                  تومان
-                </p>
+                {item.category === "realState" && (
+                  <p className="text-sm text-zinc-300">
+                    اجاره:{" "}
+                    {Math.round(
+                      Number(item.price) / 48
+                    ).toLocaleString()}{" "}
+                  
+                
+                تومان
+              </p>
+              )}
 
-                <p className="text-xs text-zinc-500">
-                  آژانس املاک کارن در تهران
-                </p>
-              </div>
+              <p className="text-xs text-zinc-500">
+                آژانس املاک کارن در تهران
+              </p>
             </div>
+          </div>
           </Link>
-        );
-      })}
-    </div>
+  );
+})}
+    </div >
   );
 }

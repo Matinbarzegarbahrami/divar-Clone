@@ -27,12 +27,10 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
     const user = jwt.verify(token, process.env.JWT_SECRET!) as DataT;
-    console.log(user)
     const data = await prisma.like.findMany({
         where: {
             userId: Number(user.id),
         },
     });
-    console.log("bookmarks:", data)
     return NextResponse.json({ bookmarks: data },{status:200});
 }

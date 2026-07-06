@@ -61,7 +61,6 @@ export default function CitySelector({
     fetchCities();
   }, []);
 
-  // بستن منو با کلیک بیرون
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
@@ -99,12 +98,11 @@ export default function CitySelector({
     setSearchTerm("");
   };
 
-  // بروزرسانی کوئری URL با نام شهر
   useEffect(() => {
     if (city?.name) {
       router.push(`?city=${city.name}`);
     }
-  }, [city, router]);
+  }, [city, router, setCity, setCities, cities]);
 
   const displayCityName = city ? ToFarsi(city) : "انتخاب شهر";
 

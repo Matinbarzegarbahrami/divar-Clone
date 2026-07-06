@@ -145,7 +145,6 @@ const Modal = ({ isOpen, onClose }: ModalProps) => {
         body: JSON.stringify({ postId: item })
       });
       const result = await data.json();
-      console.log(result);
       localStorage.removeItem('BookMark')
     }
   };

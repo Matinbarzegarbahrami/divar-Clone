@@ -2,13 +2,18 @@
 import { useEffect, useState } from "react";
 import SetPrice from "./setDilay";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useCity } from "../../store/cityStore";
 
-export default function PriceFilter() {
+export default function PriceFilter({ city }: { city?: string }) {
   const [minPrice, setMinPrice] = useState('')
   const [maxPrice, setMaxPrice] = useState('')
+  const {city: currentCity} = useCity()
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  if (!city) {
+    router.push(`?city=${currentCity ? currentCity.name : "tehran"}`);
+  }
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
 

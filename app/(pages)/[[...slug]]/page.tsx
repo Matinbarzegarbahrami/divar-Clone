@@ -1,8 +1,9 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { State } from "@/app/src/types/postTypes";
 import { turnToFarsi } from "@/app/src/lib/turnToFarsi";
 import MainFrame from "@/app/src/components/Home/homeFrames";
 import MainPost from "@/app/src/components/product/mainProduct";
+import getCity from "@/app/src/lib/getCity";
 
 // const BASE_URL = "https://divar-clone-blond.vercel.app";
 const BASE_URL = "http://localhost:3000";
@@ -11,6 +12,7 @@ type Props = {
     slug?: string[];
   };
 };
+
 export async function generateMetadata(props: Props) {
   const params = await props.params;
 
@@ -27,7 +29,7 @@ export async function generateMetadata(props: Props) {
 }
 
 async function getInitialPosts(slug?: string, min?: string, max?: string, city?: string): Promise<State[]> {
-
+  
   const url = slug
     ? `${BASE_URL}/api/posts/${slug}?page=1&price=${min ? min : 0}-${max ? max : 2147483647}&city=${city ? city : 'tehran'}`
     : `${BASE_URL}/api/posts?page=1&price=${min ? min : 0}-${max ? max : 2147483647}&city=${city ? city : 'tehran'}`;
@@ -63,6 +65,9 @@ export default async function Home({
 }) {
   const { slug } = await params;
   const { price, city } = await searchParams
+  // if (!city){
+  //   getCity()
+  // }
   const priceRange = price ?? "";
   const [min, max] = priceRange.split("-");
   if (slug && slug.length >= 3) {
