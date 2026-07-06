@@ -4,6 +4,7 @@ interface SetNewPostProps {
     state: State;
     user: any;
 }
+type CityId = "tehran" | "tabriz";
 
 export async function setNewPost({ state, user }: SetNewPostProps) {
     const formData = new FormData();
@@ -29,7 +30,7 @@ switch (state.cityId) {
   case "tabriz":
     formData.append("cityId", "2");
     break;
-}
+};
 formData.append("price", String(state.price));
     formData.append("warranty", String(state.warranty));
     if (state.batteryHealth !== undefined) formData.append("batteryHealth", String(state.batteryHealth));

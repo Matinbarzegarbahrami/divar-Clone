@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/app/src/lib/prisma";
 import jwt from "jsonwebtoken";
-export async function GET(request: NextRequest,{ params}: { params: {id: string}}) {
+import { DataT } from "../../route";
+export async function GET(request: NextRequest,{ params}: { params: Promise<{id: string}>}) {
     
     const {id} = await params;
     const token = request.cookies.get("token")?.value;
@@ -9,7 +10,7 @@ export async function GET(request: NextRequest,{ params}: { params: {id: string}
     if (!token) {
         return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
-    const user = jwt.verify(token,process.env.JWT_SECRET!)
+    const user = jwt.verify(token,process.env.JWT_SECRET!) as DataT;
 console.log(user)
     const post = await prisma.post.findUnique({
         where: {

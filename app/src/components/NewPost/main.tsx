@@ -6,7 +6,6 @@ import { ImageUploader } from "./ImagePost";
 import { State } from "@/app/src/types/postTypes";
 import { reducer } from "./mainReducer";
 import { useRouter } from "next/navigation";
-import { ALLPOSTS } from "@/MOCKS/POSTS";
 import { setNewPost } from "./setNewPost";
 import { useUser } from "../../store/userStore";
 import { useCity } from "../../store/cityStore";

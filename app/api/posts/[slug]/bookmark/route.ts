@@ -3,7 +3,7 @@ import jwt  from "jsonwebtoken";
 import prisma from "@/app/src/lib/prisma";
 import { DataT } from "@/app/api/profile/route";
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ slug: number }> }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
     const {slug} = await params;
     const token = request.cookies.get("token")?.value;
     if (!token){
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     }, {status:200})
 }
 
-export async function POST(request: NextRequest, { params }: { params: Promise<{ slug: number }> }) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
     const {slug} = await params;
     const token = request.cookies.get("token")?.value;
     if (!token){

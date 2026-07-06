@@ -10,7 +10,7 @@ export type State = {
     address: string;
     location: string | null;
     city:string | null;
-    cityId?:cityT | null;
+    cityId?:"tabriz" | "tehran" | cityT | null;
     price: number;
     createdAt:string;
     // ============ state ==============

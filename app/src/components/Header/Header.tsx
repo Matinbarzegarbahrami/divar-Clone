@@ -42,6 +42,7 @@ const Header = () => {
                 const res = await data.json()
                 console.log(res)
                 setUser(res.user)
+                
             } catch (err){
                 return console.error("asdasd")
             }
