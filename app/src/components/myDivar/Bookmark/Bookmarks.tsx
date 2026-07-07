@@ -67,7 +67,7 @@ export default function BookMark() {
     };
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className='flex min-h-lvh justify-center items-center'> <Image src={"/images/divar.png"} width={50} height={50} alt='loading'/></div>;
 
   return (
     <div className="w-full px-4">

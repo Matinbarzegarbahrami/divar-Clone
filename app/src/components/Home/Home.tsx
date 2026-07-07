@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { State } from '../../types/postTypes';
 import { fetchPosts } from './fetchingdata';
 import Post from './postPart';
+import Image from 'next/image';
 
 export default function HomePage({
   initialPosts,
@@ -98,7 +99,7 @@ export default function HomePage({
         ref={loaderRef}
         className="col-span-full flex h-20 items-center justify-center"
       >
-        {loading && <p>در حال بارگذاری...</p>}
+        {loading && <div className='flex min-h-lvh justify-center items-center'> <Image src={"/images/divar.png"} width={50} height={50} alt='loading'/></div>}
         {!hasMore && !loading && (
           <p className="text-sm text-zinc-500">پست دیگری وجود ندارد</p>
         )}

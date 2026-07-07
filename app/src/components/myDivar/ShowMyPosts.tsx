@@ -35,7 +35,7 @@ export default function MyPostList({ status }: { status: string }) {
   }, [status]);
 
   if (loading) {
-    return <div>loading...</div>;
+    return <div className='flex min-h-lvh justify-center items-center'> <Image src={"/images/divar.png"} width={50} height={50} alt='loading'/></div>;
   }
 
   if (!posts.length) {

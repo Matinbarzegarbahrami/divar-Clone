@@ -11,7 +11,7 @@ const imageSrc =
     : "/images/divar.png";
     return (
         <Link
-            href={`/my-divar/my-posts/${post.id}`}
+            href={`/${post.category}/${post.id}`}
             key={post.id}
             className="flex gap-4 border h-40 border-zinc-700 rounded-xl p-3 bg-zinc-900/30 hover:bg-zinc-900/50 transition"
           >

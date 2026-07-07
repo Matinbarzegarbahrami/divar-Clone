@@ -13,6 +13,7 @@ export type State = {
     cityId?: "tabriz" | "tehran" | cityT | null | 1 | 2;
     price: number;
     createdAt: string;
+    status?: "ACTIVE" | "SEMI_ACTIVE" | "DEACTIVE";
     // ============ state ==============
     area?: number;
     floor?: number;

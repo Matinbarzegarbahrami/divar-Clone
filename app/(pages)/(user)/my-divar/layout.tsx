@@ -1,9 +1,7 @@
 
 import Aside from "@/app/src/components/myDivar/Aside";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation"
-// const BASE_URL = "https://divar-clone-blond.vercel.app";
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
 
 
 async function getUserData() {

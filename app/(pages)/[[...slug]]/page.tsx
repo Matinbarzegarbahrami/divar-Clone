@@ -5,8 +5,8 @@ import MainFrame from "@/app/src/components/Home/homeFrames";
 import MainPost from "@/app/src/components/product/mainProduct";
 import getCity from "@/app/src/lib/getCity";
 
-// const BASE_URL = "https://divar-clone-blond.vercel.app";
-const BASE_URL = "http://localhost:3000";
+
+const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
 type Props = {
   params: {
     slug?: string[];
@@ -75,12 +75,15 @@ export default async function Home({
   }
   if (slug && slug.length == 2) {
     const post = await getPost(slug?.[1])
+    console.log(post)
     return (
       <div>
         <MainPost post={post} />
       </div>
     )
+
   }
+  
 
 
   const category = slug?.[0];

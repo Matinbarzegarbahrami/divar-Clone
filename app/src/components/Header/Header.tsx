@@ -90,13 +90,13 @@ const Header = () => {
                                             <>
                                                 <li >{user.phone}</li>
                                                 <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={'my-divar'}>داشبورد</Link></li>
-                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={''}>نشان ها</Link></li>
+                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={'/my-divar/bookmarks'}>نشان ها</Link></li>
                                                 <li className="px-4 py-2  hover:bg-zinc-800 cursor-pointer"><Link href={''}>تنظیمات</Link></li>
                                             </>
                                             :
                                             <>
                                                 <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><button onClick={() => changeIsOpen(!isOpen)}>ورود</button></li>
-                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={''}>نشان ها</Link></li>
+                                                <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={'/my-divar/bookmarks'}>نشان ها</Link></li>
                                                 <li className="px-4 py-2 hover:bg-zinc-800 cursor-pointer"><Link href={''}>تنظیمات</Link></li>
                                             </>
                                         }</ul>
@@ -130,7 +130,7 @@ const Header = () => {
                 {/* Bottom navigation */}
                 <div className="fixed bottom-0 left-0 right-0 flex h-16 items-center bg-zinc-700 h-12 justify-around border-t border-zinc-800 z-50">
                     <Buttons text="آگهی ها" icon={<Home size={18} />} isMobile={true} />
-                    <Buttons text="نشان ها" icon={<BookMarked size={18} />} isMobile={true} />
+                    <Link href={"/my-divar/bookmarks"} ><BookMarked size={18} /> نشان ها</Link> 
                     <Link href={'new'}><PlusCircle size={18} /> ثبت آگهی</Link>
                     <Buttons text="چت" icon={<MessageCircle size={18} />} isMobile={true} />
                     <div className="relative z-9999">
@@ -149,7 +149,7 @@ const Header = () => {
                                                 <button onClick={() => changeIsOpen(!isOpen)}>داشبورد</button>
                                             </li>
                                             <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer">
-                                                <Link href={''}>نشان ها</Link>
+                                                <Link href={'/my-divar/bookmarks'}>نشان ها</Link>
                                             </li>
                                             <li className="px-4 py-2 hover:bg-zinc-800 cursor-pointer">
                                                 <Link href={''}>تنظیمات</Link>
@@ -160,7 +160,7 @@ const Header = () => {
                                                 <li >{user.phone}</li>
                                                 <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer"><Link href={'my-divar'}>داشبورد</Link></li>
                                             <li className="px-4 py-2 border-b border-zinc-700 hover:bg-zinc-800 cursor-pointer">
-                                                <Link href={''}>نشان ها</Link>
+                                                <Link href={'/my-divar/bookmarks'}>نشان ها</Link>
                                             </li>
                                             <li className="px-4 py-2 hover:bg-zinc-800 cursor-pointer">
                                                 <Link href={''}>تنظیمات</Link>
