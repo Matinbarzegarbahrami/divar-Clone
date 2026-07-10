@@ -105,7 +105,7 @@ const Header = () => {
                     </div>
                     <Buttons text="چت" icon={<MessageCircle size={18} />} />
                     <Buttons text="پشتیبانی" icon={<CircleQuestionMark size={18} />} />
-                    <Link href={'new'} className="mr-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90">
+                    <Link href={'/new'} className="mr-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90">
                         ثبت آگهی
                     </Link>
                 </div>
@@ -131,7 +131,7 @@ const Header = () => {
                 <div className="fixed bottom-0 left-0 right-0 flex h-16 items-center bg-zinc-700 h-12 justify-around border-t border-zinc-800 z-50">
                     <Buttons text="آگهی ها" icon={<Home size={18} />} isMobile={true} />
                     <Link href={"/my-divar/bookmarks"} ><BookMarked size={18} /> نشان ها</Link> 
-                    <Link href={'new'}><PlusCircle size={18} /> ثبت آگهی</Link>
+                    <Link href={'/new'}><PlusCircle size={18} /> ثبت آگهی</Link>
                     <Buttons text="چت" icon={<MessageCircle size={18} />} isMobile={true} />
                     <div className="relative z-9999">
                         <Buttons
