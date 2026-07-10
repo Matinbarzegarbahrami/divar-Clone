@@ -11,7 +11,7 @@ type Store = {
   login: (phone: string) => void;
   logout: () => void;
 };
-
+ 
 export const useUser = create<Store>()(
   persist(
     (set) => ({
