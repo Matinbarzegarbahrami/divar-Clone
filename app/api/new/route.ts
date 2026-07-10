@@ -5,7 +5,7 @@ import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import jwt from "jsonwebtoken";
 import prisma from "@/app/src/lib/prisma";
-import { Category, Gearbox, FuelType, Status } from "@prisma/client"; // فرض بر این است که Prisma Client این Enum‌ها را صادر می‌کند
+import { Gearbox, FuelType, Status } from "@prisma/client"; // فرض بر این است که Prisma Client این Enum‌ها را صادر می‌کند
 
 export async function POST(request: NextRequest) {
   try {
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
     const postData = {
       title,
       description,
-      category: category as Category,
+      category: category as any,
       location,
       price,
       coverImage,
