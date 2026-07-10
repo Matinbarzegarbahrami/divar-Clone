@@ -13,7 +13,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const price = searchParams.get("price");
 
   const isValidCategory =
-    slug && Object.values(Category).includes(slug as Category);
+    slug && Object.values(Category).includes(slug as any);
 
 
   let priceFilter = {};
