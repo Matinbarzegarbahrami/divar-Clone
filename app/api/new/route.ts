@@ -5,7 +5,6 @@ import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import jwt from "jsonwebtoken";
 import prisma from "@/app/src/lib/prisma";
-import { Gearbox, FuelType, Status } from "@prisma/client"; // فرض بر این است که Prisma Client این Enum‌ها را صادر می‌کند
 
 export async function POST(request: NextRequest) {
   try {
@@ -63,8 +62,8 @@ export async function POST(request: NextRequest) {
     if (formData.get("model")) optionalFields.model = formData.get("model") as string;
     if (formData.get("vehicleYear")) optionalFields.vehicleYear = Number(formData.get("vehicleYear"));
     if (formData.get("mileage")) optionalFields.mileage = Number(formData.get("mileage"));
-    if (formData.get("gearbox")) optionalFields.gearbox = formData.get("gearbox") as Gearbox;
-    if (formData.get("fuelType")) optionalFields.fuelType = formData.get("fuelType") as FuelType;
+    if (formData.get("gearbox")) optionalFields.gearbox = formData.get("gearbox") as any;
+    if (formData.get("fuelType")) optionalFields.fuelType = formData.get("fuelType") as any;
 
     // ۵. پردازش تصاویر
     const imageFiles: File[] = [];
