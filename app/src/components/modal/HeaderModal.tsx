@@ -7,15 +7,13 @@ import { useRouter } from "next/navigation";
 import { cityT, useCity } from "@/app/src/store/cityStore";
 import { ToFarsi } from "@/app/src/util/turnToFarsi";
 
-// نوع داده‌ای که از API می‌آید (name از نوع string است)
 interface CityFromApi {
   id: string;
-  name: string;      // ← string
+  name: string;
   label: string;
 }
 
-// نوع مورد استفاده در کامپوننت (برای نگهداری در state)
-interface City extends CityFromApi {}
+interface City extends CityFromApi { }
 
 interface CitySelectorProps {
   className?: string;
@@ -42,7 +40,6 @@ export default function CitySelector({
 
   const { city, setCity } = useCity();
 
-  // دریافت لیست شهرها از API
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -77,7 +74,6 @@ export default function CitySelector({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // فیلتر بر اساس جستجو
   const filteredCities = useMemo(() => {
     if (!searchTerm.trim()) return cities;
     return cities.filter((c) =>
@@ -85,11 +81,10 @@ export default function CitySelector({
     );
   }, [cities, searchTerm]);
 
-  // انتخاب شهر – تبدیل رشته به cityT و ذخیره در store
   const handleSelectCity = (selectedCity: City) => {
     const cityObject: cityT = {
-      name: selectedCity.name,   // name از API رشته است
-      id: Number(selectedCity.id),
+      name: selectedCity.name,  
+      id: selectedCity.name === "tabriz" ? 1 : 2,
       posts: [],
     };
     setCity(cityObject);

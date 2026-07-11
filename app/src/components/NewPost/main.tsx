@@ -53,7 +53,6 @@ export default function MainNewPost() {
     const router = useRouter();
     const { user } = useUser();
     const { city } = useCity();
-
     const nextStepHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
@@ -69,11 +68,10 @@ export default function MainNewPost() {
 
         if (step === 2) {
             setLoading(true);
-            
-            state.cityId = city;
             try {
                 const props = {
                     state: state,
+                    city:city.id,
                     user: user
                 };
                 await setNewPost(props);

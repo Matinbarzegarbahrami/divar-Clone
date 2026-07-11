@@ -10,7 +10,7 @@ export type State = {
     address: string;
     location: string | null;
     city: string | null;
-    cityId?: "tabriz" | "tehran" | cityT | null | 1 | 2;
+    cityId?: "tabriz" | "tehran" | cityT | null | 1 | 2 | number;
     price: number;
     createdAt: string;
     status?: "ACTIVE" | "SEMI_ACTIVE" | "DEACTIVE";
@@ -50,6 +50,7 @@ export type Action =
     | { type: "SET_CATEGORY"; payload: string }
     | { type: "SET_ADDRESS"; payload: string }
     | { type: "SET_PRICE"; payload: string }
+    | { type: "SET_CITY"; payload: number }
     // =============== state ============
     | { type: "SET_AREA"; payload: number }
     | { type: "SET_FLOOR"; payload: number }

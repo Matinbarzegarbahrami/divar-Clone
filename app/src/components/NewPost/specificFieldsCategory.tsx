@@ -128,8 +128,8 @@ export const VehicleFields = ({ state, dispatch }: FieldProps) => (
             value={state.gearbox || ""}
             onChange={(e: any) => dispatch({ type: "SET_GEARBOX", payload: e.target.value })}
             options={[
-                { value: "manual", label: "دنده دستی" },
-                { value: "automatic", label: "اتوماتیک" },
+                { value: "MANUAL", label: "دنده دستی" },
+                { value: "AUTOMATIC", label: "اتوماتیک" },
             ]}
         />
         
@@ -138,10 +138,10 @@ export const VehicleFields = ({ state, dispatch }: FieldProps) => (
             value={state.fuelType || ""}
             onChange={(e: any) => dispatch({ type: "SET_FUEL_TYPE", payload: e.target.value })}
             options={[
-                { value: "petrol", label: "بنزین" },
-                { value: "diesel", label: "دیزل" },
-                { value: "cng", label: "CNG" },
-                { value: "hybrid", label: "هیبرید" },
+                { value: "PETROL", label: "بنزین" },
+                { value: "DIESEL", label: "دیزل" },
+                { value: "CNG", label: "CNG" },
+                { value: "HYDBIRD", label: "هیبرید" },
             ]}
         />
     </div>

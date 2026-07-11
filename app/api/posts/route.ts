@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
       lte: max,
     };
   }
-
+  
   const posts = await prisma.post.findMany({
     where: {
       ...(city

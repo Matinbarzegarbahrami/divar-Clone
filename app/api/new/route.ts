@@ -50,14 +50,12 @@ export async function POST(request: NextRequest) {
     if (formData.get("hasParking")) optionalFields.hasParking = formData.get("hasParking") === "true";
     if (formData.get("hasWarehouse")) optionalFields.hasWarehouse = formData.get("hasWarehouse") === "true";
 
-    // موبایل
     if (formData.get("ram")) optionalFields.ram = Number(formData.get("ram"));
     if (formData.get("storage")) optionalFields.storage = Number(formData.get("storage"));
     if (formData.get("color")) optionalFields.color = formData.get("color") as string;
     if (formData.get("warranty")) optionalFields.warranty = formData.get("warranty") === "true";
     if (formData.get("batteryHealth")) optionalFields.batteryHealth = Number(formData.get("batteryHealth"));
 
-    // وسایل نقلیه
     if (formData.get("brand")) optionalFields.brand = formData.get("brand") as string;
     if (formData.get("model")) optionalFields.model = formData.get("model") as string;
     if (formData.get("vehicleYear")) optionalFields.vehicleYear = Number(formData.get("vehicleYear"));
@@ -122,6 +120,7 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
     const newPost = await prisma.post.create({
       data: postData,
     });

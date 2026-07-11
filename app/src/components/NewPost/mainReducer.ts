@@ -6,6 +6,8 @@ export function reducer(state: State, action: Action): State {
             return { ...state, title: action.payload };
         case "SET_DESCRIPTION":
             return { ...state, description: action.payload };
+        case "SET_CITY":
+            return { ...state, cityId: action.payload };
         case "ADD_IMAGES": {
             const images = [...state.allImages, ...action.payload];
             return {

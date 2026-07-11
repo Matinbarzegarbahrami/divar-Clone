@@ -75,7 +75,6 @@ export default async function Home({
   }
   if (slug && slug.length == 2) {
     const post = await getPost(slug?.[1])
-    console.log(post)
     return (
       <div>
         <MainPost post={post} />
