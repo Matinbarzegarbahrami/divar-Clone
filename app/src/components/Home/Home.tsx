@@ -24,7 +24,6 @@ export default function HomePage({
 
   const loaderRef = useRef<HTMLDivElement>(null);
 
-  // استخراج همه‌ی پارامترهای کوئری به جز page (چون page رو خودمون مدیریت می‌کنیم)
   const filters = useMemo(() => {
     const f: Record<string, string> = {};
     searchParams.forEach((value, key) => {

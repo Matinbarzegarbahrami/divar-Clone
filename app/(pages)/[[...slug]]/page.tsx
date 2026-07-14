@@ -65,9 +65,6 @@ export default async function Home({
 }) {
   const { slug } = await params;
   const { price, city } = await searchParams
-  // if (!city){
-  //   getCity()
-  // }
   const priceRange = price ?? "";
   const [min, max] = priceRange.split("-");
   if (slug && slug.length >= 3) {
