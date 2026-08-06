@@ -5,9 +5,13 @@ import PostDynamicFields from "./postDinamycFields";
 import { Share2, Bookmark } from "lucide-react";
 import SaveBookMarkButton from "./saveToBookmark";
 import { toFarsiNumber } from "../../lib/turnToFarsiNumber";
+import { getUser } from "./getUser";
 
 
-export default function PostInfo({ post }: { post: State }) {
+export default async function PostInfo({ post }: { post: State }) {
+  
+  const user = await getUser(post.userId)
+  
   return (
     <div className="flex flex-col gap-4 w-full" dir="rtl">
       <h1 className="text-xl font-bold text-white leading-snug">{post.title}</h1>
@@ -15,7 +19,7 @@ export default function PostInfo({ post }: { post: State }) {
       <p className="text-sm text-zinc-400">{toFarsiNumber(post.createdAt).replace(/-/g, "/")}</p>
 
       <div className="flex items-center justify-between gap-2">
-        <CallInfo phone={post.owner.phone} />
+        <CallInfo phone={user.phone} />
         <div className="flex gap-3 text-zinc-400">
           <button className="hover:text-white transition-colors">
             <Share2 size={18} />

@@ -1,10 +1,6 @@
 'use client';
 
-import MyPosts from "@/app/src/components/myDivar/posts";
-import { useUser } from "@/app/src/store/userStore";
-import { useEffect, useState } from "react";
-import { User } from "lucide-react";
-import MainDashboard from "@/app/src/components/myDivar/Dashboard";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
