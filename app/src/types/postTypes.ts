@@ -3,7 +3,7 @@ import { cityT } from "../store/cityStore";
 export type State = {
     id: string | number
     coverImage: File | null | string;
-    allImages: any;
+    allImages: any[];
     title: string;
     description: string;
     category: string;
@@ -12,7 +12,7 @@ export type State = {
     city: string | null;
     cityId?: "tabriz" | "tehran" | cityT | null | 1 | 2 | number;
     price: number;
-    userId:number;
+    userId?:number | string;
     createdAt: string;
     status?: "ACTIVE" | "SEMI_ACTIVE" | "DEACTIVE";
     // ============ state ==============
@@ -36,9 +36,7 @@ export type State = {
     mileage?: number;
     gearbox?: "manual" | "automatic";
     fuelType?: "petrol" | "diesel" | "cng" | "hybrid";
-    owner: {
-        phone: string | null
-    }
+    
 };
 
 

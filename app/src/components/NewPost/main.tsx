@@ -40,9 +40,7 @@ const initialState: State = {
     city:null,
     location:null,
     price:0,
-    owner:{
-        phone: null
-    }
+    userId:0
 };
 
 export default function MainNewPost() {
